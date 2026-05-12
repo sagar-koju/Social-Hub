@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import Avatar from "@/components/ui/avatar";
+import Image from "next/image";
 
 const sample = [
   { id: 1, name: 'Ava' },
@@ -32,16 +33,15 @@ export default function Stories() {
         {sample.map((s) => (
           <motion.button
   key={s.id}
-  whileTap={{ scale: 0.98 }}
   className="group relative shrink-0 snap-start w-20 flex flex-col items-center"
 >
-  <div className="rounded-full bg-gradient-to-tr from-indigo-500 via-blue-500 to-fuchsia-500 p-[2px] shadow-lg shadow-indigo-500/20">
+  <div className="rounded-full bg-gradient-to-tr from-indigo-500 via-blue-500 to-fuchsia-500 p-[3px]">
     
-    <div className="rounded-full bg-black/80 p-[2px]">
+    <div className="rounded-full border border-3 border-black/40">
       
       {/* Make avatar square */}
-      <div className="h-16 w-16 rounded-full overflow-hidden">
-        <Avatar name={s.name} online/>
+      <div className="h-16 w-16 rounded-full overflow-hidden relative">
+        <Image src='/assets/Profile.jpeg' alt={s.name} fill className="object-cover" />
       </div>
 
     </div>

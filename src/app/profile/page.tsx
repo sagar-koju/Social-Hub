@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
-import { PageShell } from "@/components/page-shell";
+import React from "react";
+import ProfilePageClient from "@/components/profile/ProfilePageClient";
+import { posts, users } from "@/lib/mock-data/mockFeed";
 
 export const metadata: Metadata = {
   title: "Profile",
 };
 
 export default function ProfilePage() {
+  const user = users[0];
+
   return (
-    <PageShell
-      title="Profile"
-      description="Showcase user identity, activity, and personal content."
+    <ProfilePageClient
+      user={user}
+      posts={posts}
+      likedIds={["p2"]}
+      savedIds={["p1", "p3"]}
     />
   );
 }

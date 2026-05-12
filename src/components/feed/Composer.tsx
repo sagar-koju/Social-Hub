@@ -16,14 +16,13 @@ export default function Composer() {
       className="mb-4 rounded-3xl border border-white/10 bg-black/50 p-4 shadow-xl shadow-black/20 backdrop-blur-xl"
     >
       <div className="flex gap-3 sm:gap-4">
-        <Avatar name="You" />
         <div className="flex-1">
           <motion.div className="rounded-2xl border border-white/8 bg-white/4 p-3 transition focus-within:border-indigo-400/40 focus-within:bg-white/6 focus-within:shadow-lg focus-within:shadow-indigo-500/10">
             <textarea
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="What's happening?"
-              className="min-h-16 w-full resize-none bg-transparent text-sm text-white outline-none placeholder:text-zinc-400 sm:min-h-20"
+              className="min-h-1 w-full resize-none bg-transparent text-sm text-white outline-none placeholder:text-zinc-400 sm:min-h-20"
             />
 
             <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
