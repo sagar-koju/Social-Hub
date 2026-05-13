@@ -17,7 +17,7 @@ export default function Avatar({ name, size = 40, online = false }: Props) {
         {(name || "U").slice(0, 2)}
       </div>
       {online && (
-        <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-green-400 ring-2 ring-black" />
+        <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-green-400 ring-1 ring-black" />
       )}
     </div>
   );

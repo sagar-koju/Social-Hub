@@ -24,7 +24,7 @@ export function Navbar() {
     { label: 'Home', href: '#home' },
     { label: 'Features', href: '#features' },
     { label: 'Community', href: '#community' },
-    
+    { label: 'About us', href: '#about'}
   ]
 
   return (
@@ -81,7 +81,11 @@ export function Navbar() {
             >
               Log In
             </EnhancedButton>
-            <EnhancedButton variant="primary" size="sm">
+            <EnhancedButton 
+            variant="primary" 
+            size="sm"
+            onClick={() => router.push('/signup')}
+            >
               Sign Up
             </EnhancedButton>
           </div>
