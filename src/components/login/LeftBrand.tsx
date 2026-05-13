@@ -9,7 +9,7 @@ export default function LeftBrand() {
     }, [])
   return (
     <section className="relative w-full rounded-2xl overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 opacity-80 blur-2xl" />
+      <div className="absolute inset-0 -z-10 bg-linear-to-br from-indigo-900 via-purple-900 to-pink-900 opacity-80 blur-2xl" />
 
       <motion.div
         initial={{ opacity: 0, x: -40 }}
@@ -18,7 +18,7 @@ export default function LeftBrand() {
         className="p-12 lg:p-16"
       >
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-white/20 to-white/10 flex items-center justify-center backdrop-blur-sm border border-white/10">
+          <div className="w-12 h-12 rounded-full bg-linear-to-tr from-white/20 to-white/10 flex items-center justify-center backdrop-blur-sm border border-white/10">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2L15 8H9L12 2Z" fill="white" opacity="0.9" />
             </svg>
@@ -36,8 +36,8 @@ export default function LeftBrand() {
         </p>
 
         <div className="relative">
-          <div className="rounded-xl bg-gradient-to-br from-white/5 to-white/3 p-6 backdrop-blur-sm border border-white/6 shadow-lg">
-            <div className="h-40 rounded-md bg-gradient-to-tr from-indigo-700 via-purple-700 to-pink-600" />
+          <div className="rounded-xl bg-linear-to-br from-white/5 to-white/3 p-6 backdrop-blur-sm border border-white/6 shadow-lg">
+            <div className="h-40 rounded-md bg-linear-to-tr from-indigo-700 via-purple-700 to-pink-600" />
           </div>
 
           <motion.div

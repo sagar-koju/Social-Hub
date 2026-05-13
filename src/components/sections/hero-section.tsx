@@ -1,10 +1,11 @@
 'use client'
-
 import { motion } from 'framer-motion'
 import EnhancedButton from '@/components/ui/enhanced-button'
-import { Heart, MessageCircle, Share2, Zap } from 'lucide-react'
+import { Heart, MessageCircle, Router, Share2, Zap } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export function HeroSection() {
+  const router = useRouter();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -32,7 +33,7 @@ export function HeroSection() {
   ]
 
   return (
-    <section className="min-h-screen pt-20 flex items-center justify-center relative overflow-hidden">
+    <section id='home' className="min-h-screen pt-20 flex items-center justify-center relative overflow-hidden">
       {/* Animated gradient background */}
       <div className="absolute inset-0 -z-10">
         <motion.div
@@ -74,7 +75,9 @@ export function HeroSection() {
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-4"
             >
-              <EnhancedButton variant="gradient" size="lg">
+              <EnhancedButton onClick={()=>{
+                router.push('/signup')
+              }} variant="gradient" size="lg">
                 Get Started Free
               </EnhancedButton>
               <EnhancedButton variant="outline" size="lg">

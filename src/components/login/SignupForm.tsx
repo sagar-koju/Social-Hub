@@ -33,7 +33,7 @@ export default function SignupForm() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="bg-gradient-to-br from-white/3 to-white/5 rounded-2xl p-6 border border-white/6 backdrop-blur-md shadow-lg"
+      className="bg-linear-to-br from-white/3 to-white/5 rounded-2xl p-6 border border-white/6 backdrop-blur-md shadow-lg"
     >
       <div className="mb-4">
         <h2 className="text-2xl font-bold">Create account</h2>
@@ -105,7 +105,7 @@ export default function SignupForm() {
         <button
           type="submit"
           disabled={loading || !agreeToTerms}
-          className="w-full rounded-xl py-3 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:scale-[1.01] transform transition text-white font-semibold shadow-md disabled:opacity-60"
+          className="w-full rounded-xl py-3 bg-linear-to-r from-indigo-500 via-purple-500 to-pink-500 hover:scale-[1.01] transform transition text-white font-semibold shadow-md disabled:opacity-60"
         >
           {loading ? 'Creating account…' : 'Create account'}
         </button>
