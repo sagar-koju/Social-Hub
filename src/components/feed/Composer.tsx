@@ -1,0 +1,61 @@
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
+import Avatar from "@/components/ui/avatar";
+import { BarChart3, Film, Image, Smile, Paperclip } from "lucide-react";
+
+export default function Composer() {
+  const [text, setText] = useState("");
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35 }}
+      className="mb-4 rounded-3xl border border-white/10 bg-black/50 p-4 shadow-xl shadow-black/20 backdrop-blur-xl"
+    >
+      <div className="flex gap-3 sm:gap-4">
+        <div className="flex-1">
+          <motion.div className="rounded-2xl border border-white/8 bg-white/4 p-3 transition focus-within:border-indigo-400/40 focus-within:bg-white/6 focus-within:shadow-lg focus-within:shadow-indigo-500/10">
+            <textarea
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              placeholder="What's happening?"
+              className="min-h-1 w-full resize-none bg-transparent text-sm text-white outline-none placeholder:text-zinc-400 sm:min-h-20"
+            />
+
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex flex-wrap items-center gap-2 text-zinc-300">
+                <button type="button" className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/5 px-3 py-2 text-xs transition hover:border-white/15 hover:bg-white/10">
+                  <Paperclip size={14} /> Media
+                </button>
+                <button type="button" className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/5 px-3 py-2 text-xs transition hover:border-white/15 hover:bg-white/10">
+                  <Image size={14} /> Upload
+                </button>
+                <button type="button" className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/5 px-3 py-2 text-xs transition hover:border-white/15 hover:bg-white/10">
+                  <Smile size={14} /> Emoji
+                </button>
+                <button type="button" className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/5 px-3 py-2 text-xs transition hover:border-white/15 hover:bg-white/10">
+                  <Film size={14} /> GIF
+                </button>
+                <button type="button" className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/5 px-3 py-2 text-xs transition hover:border-white/15 hover:bg-white/10">
+                  <BarChart3 size={14} /> Poll
+                </button>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="rounded-full border border-white/8 bg-white/5 px-3 py-1.5 text-xs text-zinc-300">
+                  {text.length}/280
+                </div>
+                <button className="rounded-xl bg-linear-to-r from-indigo-500 via-blue-500 to-fuchsia-500 px-4 py-2.5 font-semibold text-white shadow-lg shadow-fuchsia-500/15 transition hover:scale-[1.01] hover:shadow-fuchsia-500/25">
+                  Post
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { QueryProvider } from "@/providers/query-provider";
 import { ThemeProvider } from "@/providers/theme-provider";
+import { CreatePostProvider } from "@/providers/create-post-provider";
+import RootCreatePostModal from "@/components/create-post/RootCreatePostModal";
 import "./globals.css";
 
 const inter = Inter({
@@ -31,7 +33,12 @@ export default function RootLayout({
     >
       <body className="min-h-full bg-background font-sans text-foreground">
         <ThemeProvider>
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <CreatePostProvider>
+              {children}
+              <RootCreatePostModal />
+            </CreatePostProvider>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>
