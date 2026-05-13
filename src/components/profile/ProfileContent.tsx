@@ -46,30 +46,30 @@ export default function ProfileContent({
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-        <div className="flex items-center gap-6">
-          <div>
+        <div className="flex flex-col items-center gap-6 w-full">
+          <div className="flex flex-col gap-4 md:flex-row items-center justify-start">
             <Avatar name={user.name} size={96} online />
+            <h2 className="text-2xl font-semibold">{user.handle}</h2>
           </div>
 
-          <div className="hidden sm:block">
-            <div className="flex items-center gap-4">
-              <h2 className="text-2xl font-semibold">{user.handle}</h2>
-              <button className="ml-2 rounded-md px-3 py-1 border border-white/10 bg-white/4 text-sm font-medium">Edit profile</button>
-              <button className="rounded-md px-3 py-1 border border-white/10 bg-indigo-600 text-white text-sm font-medium">Follow</button>
-            </div>
+          <div className="flex w-full justify-between items-center gap-4 p-5">
+            <button className="ml-2 rounded-md px-5 py-2 border border-white/10 bg-white/4 text-sm font-medium">Edit profile</button>
+            <button className="rounded-md px-5 py-2 border border-white/10 bg-indigo-600 text-white text-sm font-medium">Follow</button>
+          </div>
 
-            <div className="flex gap-6 mt-4">
-              <div className="text-center">
-                <div className="text-lg font-semibold">{myPosts.length}</div>
-                <div className="text-xs text-zinc-400">Posts</div>
+          <div className="w-full">
+            <div className="flex justify-between items-center gap-6 mt-4 px-5">
+              <div className="flex gap-4 text-center">
+                <div className="text-xl font-semibold">{myPosts.length}</div>
+                <div className="text-zinc-400 mt-1">Posts</div>
               </div>
-              <div className="text-center">
-                <div className="text-lg font-semibold">{likedPosts.length}</div>
-                <div className="text-xs text-zinc-400">Liked</div>
+              <div className="flex gap-4 text-center">
+                <div className="text-xl font-semibold">{likedPosts.length}</div>
+                <div className="text-zinc-400 mt-1">Liked</div>
               </div>
-              <div className="text-center">
-                <div className="text-lg font-semibold">{savedPosts.length}</div>
-                <div className="text-xs text-zinc-400">Saved</div>
+              <div className="flex gap-4 text-center">
+                <div className="text-xl font-semibold">{savedPosts.length}</div>
+                <div className="text-zinc-400 mt-1">Saved</div>
               </div>
             </div>
 
@@ -89,15 +89,15 @@ export default function ProfileContent({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
             <button onClick={() => setTab("my")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "my" ? "text-white" : "text-zinc-400"}`}>
-              <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M3 3h18v18H3z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M3 3h18v18H3z" /></svg>
               Posts
             </button>
             <button onClick={() => setTab("liked")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "liked" ? "text-white" : "text-zinc-400"}`}>
-              <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M12 21s-6-4.35-9-7.33C.89 11.62 2 6 7.5 6c2.24 0 3.99 1.34 4.5 2.09C12.51 7.34 14.26 6 16.5 6 22 6 23.11 11.62 21 13.67 18 16.65 12 21 12 21z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M12 21s-6-4.35-9-7.33C.89 11.62 2 6 7.5 6c2.24 0 3.99 1.34 4.5 2.09C12.51 7.34 14.26 6 16.5 6 22 6 23.11 11.62 21 13.67 18 16.65 12 21 12 21z" /></svg>
               Liked
             </button>
             <button onClick={() => setTab("saved")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "saved" ? "text-white" : "text-zinc-400"}`}>
-              <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M6 2h12v20l-6-3-6 3V2z"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M6 2h12v20l-6-3-6 3V2z" /></svg>
               Saved
             </button>
           </div>

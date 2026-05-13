@@ -35,9 +35,9 @@ export default function Stories() {
   key={s.id}
   className="group relative shrink-0 snap-start w-20 flex flex-col items-center"
 >
-  <div className="rounded-full bg-gradient-to-tr from-indigo-500 via-blue-500 to-fuchsia-500 p-[3px]">
+  <div className="rounded-full border border-3 border-purple-400 p-[3px]">
     
-    <div className="rounded-full border border-3 border-black/40">
+    <div className="rounded-full">
       
       {/* Make avatar square */}
       <div className="h-16 w-16 rounded-full overflow-hidden relative">

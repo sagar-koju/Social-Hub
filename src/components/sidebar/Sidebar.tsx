@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useCreatePostModal } from "@/hooks/useCreatePostModal";
 import {
   Home,
   Compass,
@@ -31,6 +32,7 @@ const nav = [
 export default function Sidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const { openModal } = useCreatePostModal();
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
@@ -77,7 +79,10 @@ export default function Sidebar() {
           })}
         </nav>
 
-        <button className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-indigo-500 to-fuchsia-500 px-4 py-3 font-semibold text-white shadow-lg shadow-fuchsia-500/15 transition hover:scale-[1.01] hover:shadow-fuchsia-500/25">
+        <button
+          onClick={openModal}
+          className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-indigo-500 to-fuchsia-500 px-4 py-3 font-semibold text-white shadow-lg shadow-fuchsia-500/15 transition hover:scale-[1.01] hover:shadow-fuchsia-500/25"
+        >
           <Plus size={16} />
           {!collapsed && "Create Post"}
         </button>
