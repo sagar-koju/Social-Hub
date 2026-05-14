@@ -41,12 +41,12 @@ export function ChatSidebar({
   return (
     <aside
       className={cn(
-        "flex h-full min-h-screen flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl",
+        "flex h-full min-h-0 flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl",
         compact && "rounded-none border-0 bg-transparent backdrop-blur-0",
         className,
       )}
     >
-      <div className="border-b border-white/10 p-4 sm:p-5">
+      <div className="shrink-0 border-b border-white/10 p-4 sm:p-5">
         <div className="mt-3 flex gap-3 items-center">
           <Link href="/feed" className="hover:bg-white/10 rounded-md p-1">
             <ArrowLeft />
@@ -118,7 +118,12 @@ export function ChatSidebar({
                       ) : null}
                     </div>
                   </div>
-                  <p className="line-clamp-2 text-sm leading-5 text-slate-300">
+                  <p
+                    className={cn(
+                      "line-clamp-1 text-sm leading-5",
+                      conversation.unread > 0 ? "font-semibold text-white" : "text-slate-300",
+                    )}
+                  >
                     {conversation.preview}
                   </p>
                   <div className="flex items-center gap-2 text-[11px] text-slate-500">

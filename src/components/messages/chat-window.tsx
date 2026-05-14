@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Paperclip, Send, Sparkles, UserRound, Video, Phone, Info } from "lucide-react";
+import { Paperclip, Mic, Smile, Sparkles, UserRound, Video, Phone, Info, SendHorizonal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
@@ -58,46 +58,23 @@ export function ChatWindow({
         <div className="flex min-w-0 items-center gap-3">
           <div
             className={cn(
-              "flex size-12 items-center justify-center rounded-2xl bg-linear-to-br text-sm font-semibold text-white shadow-lg",
+              "flex size-12 items-center justify-center rounded-full bg-linear-to-br text-sm font-semibold text-white shadow-lg",
               conversation.accent,
             )}
           >
             {conversation.avatar}
           </div>
           <div className="min-w-0">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col items-start justify-start">
               <h2 className="truncate text-lg font-semibold text-white">{conversation.name}</h2>
-              <span
-                className={cn(
-                  "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-medium",
-                  conversation.status === "online"
-                    ? "bg-emerald-400/10 text-emerald-200"
-                    : conversation.status === "away"
-                      ? "bg-amber-400/10 text-amber-200"
-                      : "bg-slate-500/10 text-slate-300",
-                )}
-              >
-                <span
-                  className={cn(
-                    "size-1.5 rounded-full",
-                    conversation.status === "online"
-                      ? "bg-emerald-300"
-                      : conversation.status === "away"
-                        ? "bg-amber-300"
-                        : "bg-slate-400",
-                  )}
-                />
-                {conversation.lastSeen}
-              </span>
+              <p className="text-sm text-slate-400">{conversation.handle}</p>
             </div>
-            <p className="truncate text-sm text-slate-400">
-              {conversation.title} · {conversation.handle}
-            </p>
+            
           </div>
         </div>
 
         <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon-sm" className="text-slate-300 hover:bg-white/5 hover:text-white">
+          <Button variant="ghost" size="icon-sm" className="text-slate-300 hover:bg-white/5 hover:text-white">
             <Video className="size-6" />
             <span className="sr-only">Start video call</span>
           </Button>
@@ -117,7 +94,7 @@ export function ChatWindow({
               <span className="sr-only">Open info panel</span>
             </Button>
           ) : null}
-          
+
         </div>
       </div>
 
@@ -173,34 +150,36 @@ export function ChatWindow({
         </div>
       </ScrollArea>
 
-      <div className="border-t border-white/10 p-4 sm:p-5">
-        <div className="rounded-3xl border border-white/10 bg-slate-950/60 p-3 shadow-2xl shadow-black/20">
-          <div className="flex items-end gap-2">
-            <Button variant="ghost" size="icon-sm" className="shrink-0 text-slate-300 hover:bg-white/5 hover:text-white">
-              <Paperclip className="size-4" />
+      <div className="">
+        <div className="flex items-center justify-end gap-4 border border-white/10 bg-slate-950/60 p-3 shadow-2xl shadow-black/20">
+         <Button variant="ghost" size="icon-sm" className="shrink-0 text-slate-300 hover:bg-white/5 hover:text-white">
+              <Mic className="size-5" />
               <span className="sr-only">Attach file</span>
             </Button>
-
-            <Textarea
+             <Button variant="ghost" size="icon-sm" className="shrink-0 text-slate-300 hover:bg-white/5 hover:text-white">
+              <Paperclip className="size-5" />
+              <span className="sr-only">Attach file</span>
+            </Button>
+             <Button variant="ghost" size="icon-sm" className="shrink-0 text-slate-300 hover:bg-white/5 hover:text-white">
+              <Smile className="size-5" />
+              <span className="sr-only">Attach file</span>
+            </Button>
+          <div className="flex flex-1 items-end gap-2 min-w-0">
+            <input
+              type="text"
               value={draft}
               onChange={(event) => onDraftChange(event.target.value)}
               placeholder={`Message ${conversation.name.split(" ")[0]}...`}
-              className="min-h-13 border-0 bg-transparent px-1 py-3 text-white placeholder:text-slate-500 focus-visible:ring-0"
+              className="min-w-0 flex-1 rounded-full border border-white/10 bg-slate-900/70 px-4 py-3 text-white placeholder:text-slate-500"
             />
-
-            <Button
+          </div>
+           <Button
               onClick={onSendMessage}
               disabled={!draft.trim()}
-              className="shrink-0 bg-linear-to-r from-violet-500 to-fuchsia-500 text-white hover:opacity-95"
+              className="shrink-0 hover"
             >
-              <Send className="size-4" />
-              Send
+              <SendHorizonal className="size-6 text-purple-400" />
             </Button>
-          </div>
-          <div className="mt-2 flex items-center justify-between text-[11px] text-slate-500">
-            <span>Shift + Enter for a new line</span>
-            <span>{conversation.lastSeen}</span>
-          </div>
         </div>
       </div>
     </section>
