@@ -6,16 +6,7 @@ import TopNav from "@/components/navigation/TopNav";
 import Sidebar from "@/components/sidebar/Sidebar";
 import BottomNav from "@/components/navigation/BottomNav";
 import ProfileContent from "@/components/profile/ProfileContent";
-
-type Post = {
-  id: string;
-  userId: string;
-  content: string;
-  img?: string;
-  likes: number;
-  comments: number;
-  timestamp: string;
-};
+import type { Post } from "@/types/post";
 
 type User = { id: string; name: string; handle: string; verified?: boolean };
 

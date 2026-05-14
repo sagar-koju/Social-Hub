@@ -3,16 +3,7 @@
 import { useMemo, useState } from "react";
 import Avatar from "@/components/ui/avatar";
 import PostCard from "@/components/feed/PostCard";
-
-type Post = {
-  id: string;
-  userId: string;
-  content: string;
-  img?: string;
-  Folowers: number;
-  comments: number;
-  timestamp: string;
-};
+import type { Post } from "@/types/post";
 
 type User = { id: string; name: string; handle: string; verified?: boolean; followers?: number; following?: number };
 

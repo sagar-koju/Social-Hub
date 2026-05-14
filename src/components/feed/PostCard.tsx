@@ -4,16 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Avatar from "@/components/ui/avatar";
 import { Bookmark, CheckCheck, ChevronDown, ChevronUp, Heart, MessageCircle, Repeat } from "lucide-react";
-
-type Post = {
-  id: string;
-  userId: string;
-  content: string;
-  img?: string;
-  likes: number;
-  comments: number;
-  timestamp: string;
-};
+import type { Post } from "@/types/post";
 
 export default function PostCard({ post, user }: { post: Post; user: { name: string; handle: string; verified?: boolean } }) {
   const [liked, setLiked] = useState(false);
