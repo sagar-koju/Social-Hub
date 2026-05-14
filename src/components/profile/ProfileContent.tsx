@@ -9,12 +9,12 @@ type Post = {
   userId: string;
   content: string;
   img?: string;
-  likes: number;
+  Folowers: number;
   comments: number;
   timestamp: string;
 };
 
-type User = { id: string; name: string; handle: string; verified?: boolean };
+type User = { id: string; name: string; handle: string; verified?: boolean; followers?: number; following?: number };
 
 export default function ProfileContent({
   user,
@@ -59,17 +59,17 @@ export default function ProfileContent({
 
           <div className="w-full">
             <div className="flex justify-between items-center gap-6 mt-4 px-5">
-              <div className="flex gap-4 text-center">
+              <div className="flex gap-2 text-center">
                 <div className="text-xl font-semibold">{myPosts.length}</div>
                 <div className="text-zinc-400 mt-1">Posts</div>
               </div>
-              <div className="flex gap-4 text-center">
-                <div className="text-xl font-semibold">{likedPosts.length}</div>
-                <div className="text-zinc-400 mt-1">Liked</div>
+              <div className="flex gap-2 text-center">
+                <div className="text-xl font-semibold">{user.followers ?? 1234}</div>
+                <div className="text-zinc-400 mt-1">Followers</div>
               </div>
-              <div className="flex gap-4 text-center">
-                <div className="text-xl font-semibold">{savedPosts.length}</div>
-                <div className="text-zinc-400 mt-1">Saved</div>
+              <div className="flex gap-2 text-center">
+                <div className="text-xl font-semibold">{user.following ?? 567}</div>
+                <div className="text-zinc-400 mt-1">Following</div>
               </div>
             </div>
 

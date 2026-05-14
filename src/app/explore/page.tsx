@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
-import { PageShell } from "@/components/page-shell";
+import ExplorePageClient from "@/components/explore/ExplorePageClient";
 
 export const metadata: Metadata = {
   title: "Explore",
 };
 
 export default function ExplorePage() {
-  return (
-    <PageShell
-      title="Explore"
-      description="Discover new posts, creators, and conversations."
-    />
-  );
+  return <ExplorePageClient />;
 }

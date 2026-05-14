@@ -21,7 +21,7 @@ export default function BottomNav() {
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}`);
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-3 pb-[env(safe-area-inset-bottom)] lg:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-3 pb-[env(safe-area-inset-bottom)] md:hidden">
       <div className="w-full max-w-md rounded-t-3xl border border-white/10 bg-black/70 px-3 py-2 shadow-2xl shadow-black/40 backdrop-blur-xl">
         <div className="grid grid-cols-5 gap-1">
           {nav.map((item) => {

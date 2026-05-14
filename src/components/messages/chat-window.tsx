@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Paperclip, SendHorizontal, Sparkles, UserRound, Video, Phone, Info, SendHorizonal } from "lucide-react";
+import { Paperclip, Mic, Smile, Sparkles, UserRound, Video, Phone, Info, SendHorizonal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
@@ -153,15 +153,24 @@ export function ChatWindow({
       <div className="">
         <div className="flex items-center justify-end gap-4 border border-white/10 bg-slate-950/60 p-3 shadow-2xl shadow-black/20">
          <Button variant="ghost" size="icon-sm" className="shrink-0 text-slate-300 hover:bg-white/5 hover:text-white">
+              <Mic className="size-5" />
+              <span className="sr-only">Attach file</span>
+            </Button>
+             <Button variant="ghost" size="icon-sm" className="shrink-0 text-slate-300 hover:bg-white/5 hover:text-white">
               <Paperclip className="size-5" />
               <span className="sr-only">Attach file</span>
             </Button>
-          <div className="flex items-end gap-2">
-            <input type="text"
+             <Button variant="ghost" size="icon-sm" className="shrink-0 text-slate-300 hover:bg-white/5 hover:text-white">
+              <Smile className="size-5" />
+              <span className="sr-only">Attach file</span>
+            </Button>
+          <div className="flex flex-1 items-end gap-2 min-w-0">
+            <input
+              type="text"
               value={draft}
               onChange={(event) => onDraftChange(event.target.value)}
               placeholder={`Message ${conversation.name.split(" ")[0]}...`}
-              className="border border-white/10 bg-slate-900/70 bg-transparent px-4 py-3 text-white placeholder:text-slate-500 rounded-full"
+              className="min-w-0 flex-1 rounded-full border border-white/10 bg-slate-900/70 px-4 py-3 text-white placeholder:text-slate-500"
             />
           </div>
            <Button
