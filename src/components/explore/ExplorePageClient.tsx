@@ -26,18 +26,18 @@ export default function ExplorePageClient() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.45 }}
-      className="min-h-screen bg-[#030313] text-white"
+      className="flex h-[100svh] flex-col overflow-hidden bg-[#030313] text-white"
     >
       <TopNav />
 
-      <div className="w-full px-4 pb-28 sm:px-6 lg:px-8 lg:pb-6">
-        <div className="grid grid-cols-1 gap-6 py-6 md:grid-cols-12">
-          <aside className="hidden md:col-span-3 md:block lg:col-span-3">
+      <div className="flex-1 min-h-0 w-full overflow-hidden px-4 sm:px-6 lg:px-8">
+        <div className="grid h-full min-h-0 grid-cols-1 gap-6 py-6 md:grid-cols-12">
+          <aside className="hidden min-h-0 md:col-span-3 md:block md:overflow-y-auto scrollbar-hide lg:col-span-3">
             <Sidebar />
           </aside>
 
-          <section className="space-y-5 md:col-span-9 lg:col-span-6">
-            <div className="sticky top-16 z-40">
+          <section className="min-h-0 space-y-5 overflow-y-auto scrollbar-hide md:col-span-9 lg:col-span-6 lg:pb-6">
+            <div className="sticky top-0 z-40">
               <ExploreHeader />
             </div>
 
@@ -52,8 +52,8 @@ export default function ExplorePageClient() {
             <RecommendedCreatorsSection />
           </section>
 
-          <aside className="hidden lg:col-span-3 lg:block">
-            <div className="sticky top-24 space-y-4">
+          <aside className="hidden min-h-0 lg:col-span-3 lg:block lg:overflow-y-auto scrollbar-hide">
+            <div className="space-y-4">
               <TrendingTopicsWidget />
               <RecommendedCreatorsSection />
             </div>

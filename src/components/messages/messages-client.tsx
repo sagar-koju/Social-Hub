@@ -171,25 +171,25 @@ export function MessagesClient() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.45 }}
-            className="relative h-screen overflow-hidden bg-[#030313] text-white"
+            className="relative flex h-[100svh] flex-col overflow-hidden bg-[#030313] text-white"
         >
             <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(168,85,247,0.16),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(99,102,241,0.12),transparent_30%)]" />
             <div className="absolute inset-x-0 top-0 -z-10 h-72 bg-linear-to-b from-violet-500/10 to-transparent blur-3xl" />
 
-            <div className="mx-auto flex h-full w-full max-w-400 flex-col sm:py-6 sm:px-6 lg:px-8">
+            <div className="mx-auto flex w-full max-w-400 flex-1 min-h-0 flex-col sm:px-6 sm:py-6 lg:px-8">
                 <div className="grid min-h-0 flex-1 gap-4 overflow-hidden md:grid-cols-[320px_minmax(0,1fr)] lg:grid-cols-[320px_minmax(0,1fr)] xl:grid-cols-[320px_minmax(0,1fr)_320px]">
-                    <div className="sticky hidden h-full md:block">
+                    <div className="hidden min-h-0 md:flex md:flex-col md:overflow-y-auto">
                         <ChatSidebar
                             conversations={filteredConversations}
                             activeConversationId={activeConversation?.id ?? ""}
                             query={query}
                             onQueryChange={setQuery}
                             onSelectConversation={handleSelectConversation}
-                            className="h-full"
+                            className="min-h-0 h-full"
                         />
                     </div>  
 
-                    <div className="flex min-h-0 h-full flex-col">
+                    <div className="flex min-h-0 h-full flex-col overflow-hidden">
                         <ChatWindow
                             conversation={activeConversation}
                             messages={activeConversation?.messages ?? []}
@@ -202,8 +202,8 @@ export function MessagesClient() {
                         />
                     </div>
 
-                    <div className="sticky hidden h-full xl:block">
-                        <ChatInfoPanel conversation={activeConversation} className="h-full" />
+                    <div className="hidden min-h-0 xl:flex xl:flex-col xl:overflow-y-auto">
+                        <ChatInfoPanel conversation={activeConversation} className="min-h-0 h-full" />
                     </div>
                 </div>
 

@@ -37,7 +37,7 @@ export default function Sidebar() {
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
-      className="sticky top-24"
+      className="h-full min-h-0"
     >
       <div className="rounded-3xl border border-white/10 bg-black/50 px-4 py-10 shadow-2xl shadow-black/30 backdrop-blur-xl transition duration-300">
       <div className="mb-6 rounded-2xl border border-white/8 bg-white/4 p-3">

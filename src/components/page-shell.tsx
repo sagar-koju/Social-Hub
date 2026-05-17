@@ -16,10 +16,10 @@ export function PageShell({
   children,
 }: PageShellProps) {
   return (
-    <main className="min-h-screen px-4 py-6 sm:px-6 lg:px-8">
+    <main className="px-4 py-6 sm:px-6 lg:px-8">
       <div
         className={cn(
-          "mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-5xl flex-col justify-center gap-6",
+          "mx-auto flex w-full max-w-5xl flex-col gap-6",
           className,
         )}
       >
