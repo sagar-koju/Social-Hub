@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Avatar from "@/components/ui/avatar";
 import { Bookmark, CheckCheck, ChevronDown, ChevronUp, Heart, MessageCircle, Repeat } from "lucide-react";
 import type { Post } from "@/types/post";
+import Image from "next/image";
 
 export default function PostCard({ post, user }: { post: Post; user: { name: string; handle: string; verified?: boolean } }) {
   const [liked, setLiked] = useState(false);
@@ -73,14 +74,16 @@ export default function PostCard({ post, user }: { post: Post; user: { name: str
 
           {post.img && (
             <div className="mt-4 overflow-hidden rounded-2xl border border-white/8 bg-linear-to-br from-indigo-500/30 via-slate-700/50 to-fuchsia-500/25 p-3 shadow-lg shadow-black/20">
-              <div className="h-56 rounded-xl bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),transparent_40%),linear-gradient(135deg,rgba(59,130,246,0.7),rgba(168,85,247,0.5),rgba(236,72,153,0.45))]" />
+              <div className="relative h-100 rounded-xl overflow-hidden">
+                <Image src={post.img} alt="Post content" fill className="object-cover" />
+              </div>
             </div>
           )}
 
           <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-zinc-400 sm:gap-4">
             <button
               onClick={toggleLike}
-              className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 transition ${liked ? "border-pink-400/30 bg-pink-500/10 text-pink-300" : "border-white/8 bg-white/5 hover:border-pink-400/30 hover:bg-pink-500/10 hover:text-pink-300"}`}
+              className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 transition ${liked ? "border-red-400/30 bg-red-500 text-white" : "border-white/8 bg-white/5 hover:border-red-400/30 hover:bg-red-500/10 hover:text-red-300"}`}
             >
               <motion.span whileTap={{ scale: 0.9 }}>
                 <Heart size={16} fill={liked ? "currentColor" : "none"} />

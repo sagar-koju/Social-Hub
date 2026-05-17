@@ -37,7 +37,7 @@ export default function ProfilePageClient({
             <Sidebar />
           </aside>
 
-          <section className="md:col-span-9 lg:col-span-6">
+          <section className="md:col-span-9 lg:col-span-9">
             <ProfileContent
               user={user}
               posts={posts}

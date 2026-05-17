@@ -14,8 +14,8 @@ export default function ProfilePage() {
     <ProfilePageClient
       user={user}
       posts={posts}
-      likedIds={["p2"]}
-      savedIds={["p1", "p3"]}
+      likedIds={["p2","p10"]}
+      savedIds={["p1", "p3", "p10"]}
     />
   );
 }

@@ -35,7 +35,7 @@ export default function Stories() {
   key={s.id}
   className="group relative shrink-0 snap-start w-20 flex flex-col items-center"
 >
-  <div className="rounded-full border border-3 border-purple-400 p-[3px]">
+  <div className="rounded-full border-3 border-purple-400 p-[3px]">
     
     <div className="rounded-full">
       
