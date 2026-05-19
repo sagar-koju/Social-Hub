@@ -1,8 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "shadcn/tailwind.css";
+/* @import "shadcn/tailwind.css"; */
 
-:root {
+
+/* :root {
   --color-background: #e8e8e8;
   --color-surface: #bfbfbf;
   --color-muted: #96939b;
@@ -24,7 +25,7 @@
   --color-foreground: #f1eaf5;
   --color-card: #2b2530;
   --color-border: #2b2530;
-}
+} */
 
 html {
   height: 100%;

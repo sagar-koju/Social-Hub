@@ -12,7 +12,7 @@ import { AnimatedBackground } from '@/components/ui/animated-background'
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen w-full overflow-hidden bg-slate-950 text-slate-100">
+    <main className="min-h-screen w-full overflow-hidden bg-background text-foreground transition-colors duration-300">
       <AnimatedBackground variant="blobs" />
       <Navbar />
       <HeroSection />

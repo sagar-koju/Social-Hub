@@ -23,7 +23,7 @@ export function Footer() {
   ]
 
   return (
-    <footer id="about" className="bg-gradient-to-b from-slate-900 to-slate-950 border-t border-white/10">
+    <footer id="about" className="bg-linear-to-b from-slate-900 to-slate-950 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Main Footer Content */}
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
@@ -36,7 +36,7 @@ export function Footer() {
             className="lg:col-span-1"
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-400 to-purple-600 flex items-center justify-center">
                 <span className="text-white font-bold text-lg">SH</span>
               </div>
               <span className="text-xl font-bold text-white">SocialHub</span>
@@ -76,7 +76,7 @@ export function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-12" />
+        <div className="h-px bg-linear-to-r from-transparent via-white/10 to-transparent my-12" />
 
         {/* Bottom Footer */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
