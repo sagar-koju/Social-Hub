@@ -33,7 +33,7 @@ export function HeroSection() {
   ]
 
   return (
-    <section id='home' className="relative flex min-h-screen items-center justify-center overflow-hidden pt-20">
+     <section id='home' className="min-h-screen pt-20 flex items-center justify-center relative overflow-hidden">
       {/* Animated gradient background */}
       <div className="absolute inset-0 -z-10">
         <motion.div
@@ -42,7 +42,7 @@ export function HeroSection() {
             rotate: [0, 10, 0],
           }}
           transition={{ duration: 20, repeat: Infinity }}
-          className="absolute top-20 right-10 h-96 w-96 rounded-full bg-linear-to-br from-blue-500/20 to-cyan-500/20 blur-3xl"
+          className="absolute top-20 right-10 w-96 h-96 bg-gradient-to-br dark:from-blue-500/20 dark:to-cyan-500/20 rounded-full blur-3xl"
         />
       </div>
 
@@ -57,14 +57,14 @@ export function HeroSection() {
           <div className="space-y-8">
             <motion.h1
               variants={itemVariants}
-              className="bg-linear-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-5xl font-black leading-tight text-transparent md:text-6xl lg:text-7xl"
+              className="text-5xl md:text-6xl lg:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 leading-tight"
             >
               Connect. Share. Engage.
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
-              className="text-xl leading-relaxed max-w-lg text-muted"
+              className="text-xl dark:text-slate-300 leading-relaxed max-w-lg"
             >
               The next generation of social media. Real connections, authentic
               moments, and endless possibilities. Join millions of creators and
@@ -90,31 +90,31 @@ export function HeroSection() {
               className="flex items-center gap-8 pt-8"
             >
               <div>
-                <div className="text-3xl font-bold text-blue-400">50M+</div>
-                <p className="text-muted">Active Users</p>
+                <div className="text-3xl font-bold dark:text-blue-400">50M+</div>
+                <p className="text-slate-800 dark:text-slate-400">Active Users</p>
               </div>
               <div>
-                <div className="text-3xl font-bold text-purple-400">1B+</div>
-                <p className="text-muted">Posts Shared</p>
+                <div className="text-3xl font-bold dark:text-purple-400">1B+</div>
+                <p className="text-slate-800 dark:text-slate-400">Posts Shared</p>
               </div>
               <div>
-                <div className="text-3xl font-bold text-pink-400">24/7</div>
-                <p className="text-muted">Support</p>
+                <div className="text-3xl font-bold dark:text-pink-400">24/7</div>
+                <p className="text-slate-900 dark:text-slate-400">Support</p>
               </div>
             </motion.div>
           </div>
 
           {/* Right: Floating Cards */}
-          <div className="relative hidden h-125 md:block">
+          <div className="relative h-[500px] hidden md:block">
             {/* Central dashboard mockup */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="absolute inset-0 rounded-3xl border border-border bg-card/80 p-6 shadow-2xl backdrop-blur-xl"
+              className="absolute inset-0 bg-gradient-to-br dark:from-slate-800/50 dark:to-slate-900/50 rounded-3xl border dark:border-white/10 backdrop-blur-xl p-6 shadow-2xl"
             >
-              <div className="flex h-full items-center justify-center rounded-2xl bg-linear-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10">
-                <Zap className="w-24 h-24 text-blue-400/30" />
+              <div className="h-full bg-gradient-to-br dark:from-blue-900/20 dark:via-purple-900/20 dark:to-slate-900/20 rounded-2xl flex items-center justify-center">
+                <Zap className="w-24 h-24 dark:text-blue-400/30" />
               </div>
             </motion.div>
 
@@ -129,7 +129,7 @@ export function HeroSection() {
                   delay: 0.6 + card.delay,
                 }}
                 whileHover={{ y: -10, scale: 1.05 }}
-                className={`absolute flex h-32 w-32 cursor-pointer flex-col items-center justify-center rounded-2xl border border-border bg-background/80 p-4 backdrop-blur-md transition-all hover:border-border/80 ${
+                className={`absolute w-32 h-32 rounded-2xl border dark:border-white/10 dark:bg-white/5 backdrop-blur-md p-4 flex flex-col items-center justify-center cursor-pointer dark:hover:border-white/20 transition-all ${
                   index === 0
                     ? 'top-0 -left-10'
                     : index === 1
@@ -137,8 +137,8 @@ export function HeroSection() {
                       : 'bottom-10 left-1/2'
                 }`}
               >
-                <card.icon className="w-8 h-8 text-blue-400 mb-2" />
-                <span className="text-sm font-semibold text-foreground">
+                <card.icon className="w-8 h-8 dark:text-blue-400 mb-2" />
+                <span className="text-sm font-semibold dark:text-slate-300">
                   {card.label}
                 </span>
               </motion.div>
