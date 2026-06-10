@@ -72,7 +72,7 @@ export function FeaturesSection() {
   return (
     <section
       id="features"
-      className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-slate-900 to-slate-950"
+      className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-white to-slate-100 dark:from-slate-900 dark:to-slate-950"
     >
       {/* Decorative elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
@@ -92,7 +92,7 @@ export function FeaturesSection() {
               Powerful Features
             </span>
           </h2>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-900 dark:text-slate-400 max-w-2xl mx-auto">
             Everything you need to share, connect, and grow. Packed with
             features designed for modern social networking.
           </p>
@@ -113,14 +113,14 @@ export function FeaturesSection() {
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: 'spring', stiffness: 400 }}
-                    className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 to-purple-500/30 flex items-center justify-center"
+                    className="w-12 h-12 rounded-xl bg-gradient-to-br from-white to-slate-300 dark:from-blue-500/30 dark:to-purple-500/30 flex items-center justify-center"
                   >
                     <feature.icon className="w-6 h-6 text-blue-400" />
                   </motion.div>
-                  <h3 className="text-xl font-bold text-white">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">
                     {feature.title}
                   </h3>
-                  <p className="text-slate-400">{feature.description}</p>
+                  <p className="text-slate-900 dark:text-slate-400">{feature.description}</p>
                 </div>
               </GlassCard>
             </motion.div>

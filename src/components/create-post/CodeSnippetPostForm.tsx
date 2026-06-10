@@ -44,25 +44,25 @@ export default function CodeSnippetPostForm() {
     <div className="space-y-4">
       {/* Title */}
       <div>
-        <label className="text-sm font-medium text-zinc-300">Snippet Title</label>
+        <label className="text-sm font-medium text-zinc-600  dark:text-zinc-300">Snippet Title</label>
         <Input
           placeholder="Give your code a name..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="mt-2 bg-white/5 border-white/10 text-white placeholder-zinc-500"
+          className="mt-2 bg-white/5 border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-zinc-500"
         />
       </div>
 
       {/* Language Selector */}
       <div>
-        <label className="text-sm font-medium text-zinc-300">Language</label>
+        <label className="text-sm font-medium text-zinc-600  dark:text-zinc-300">Language</label>
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
-          className="mt-2 w-full rounded-lg bg-white/5 border border-white/10 px-3 py-2 text-white"
+          className="mt-2 w-full rounded-lg bg-white/5 border border-slate-300 dark:border-white/10 px-3 py-2 text-slate-900 dark:text-white"
         >
           {languages.map((lang) => (
-            <option key={lang} value={lang} className="bg-slate-950">
+            <option key={lang} value={lang} className="bg-white/80 dark:bg-slate-950 text-xs">
               {lang.charAt(0).toUpperCase() + lang.slice(1)}
             </option>
           ))}
@@ -71,9 +71,9 @@ export default function CodeSnippetPostForm() {
 
       {/* Code Editor */}
       <div>
-        <label className="text-sm font-medium text-zinc-300">Code</label>
-        <div className="mt-2 rounded-lg bg-black/40 border border-white/10 overflow-hidden">
-          <div className="bg-white/5 border-b border-white/10 px-3 py-2 text-xs text-zinc-400 flex justify-between">
+        <label className="text-sm font-medium text-zinc-600 dark:text-zinc-300">Code</label>
+        <div className="mt-2 rounded-lg bg-slate-100 dark:bg-black/40 border border-slate-300 dark:border-white/10 overflow-hidden">
+          <div className="bg-white/5 border-b border-slate-300 dark:border-white/10 px-3 py-2 text-xs text-zinc-500 flex justify-between">
             <span>{language}</span>
             <span>{code.split("\n").length} lines</span>
           </div>
@@ -81,27 +81,27 @@ export default function CodeSnippetPostForm() {
             placeholder="Paste your code here..."
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            className="min-h-64 resize-none bg-transparent border-0 text-white placeholder-zinc-600 font-mono text-xs"
+            className="min-h-64 resize-none bg-transparent border-0 text-slate-900 dark:text-white placeholder-zinc-600 font-mono text-xs"
           />
         </div>
       </div>
 
       {/* Description */}
       <div>
-        <label className="text-sm font-medium text-zinc-300">Description (Optional)</label>
+        <label className="text-sm font-medium text-zinc-600  dark:text-zinc-300">Description (Optional)</label>
         <Textarea
           placeholder="Explain what this code does..."
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="mt-2 min-h-24 resize-none bg-white/5 border-white/10 text-white placeholder-zinc-500"
-        />
+          className="mt-2 min-h-24 resize-none bg-white/5 border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-zinc-500 focus:border-none"
+         />
       </div>
 
       {/* Code Preview */}
       {code.trim() && (
-        <div className="rounded-lg bg-black/60 border border-white/10 p-3">
-          <div className="text-xs text-zinc-400 mb-2">Preview</div>
-          <pre className="text-xs text-white overflow-x-auto">
+        <div className="rounded-lg bg-slate-100 dark:bg-black/60 border border-slate-300 dark:border-white/10 p-3">
+          <div className="text-xs text-zinc-500 mb-2">Preview</div>
+          <pre className="text-xs text-black dark:text-white overflow-x-auto">
             <code>{code.slice(0, 300)}{code.length > 300 ? "..." : ""}</code>
           </pre>
         </div>

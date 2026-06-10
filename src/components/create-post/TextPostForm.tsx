@@ -32,12 +32,12 @@ export default function TextPostForm() {
   return (
     <div className="space-y-4">
       <div>
-        <label className="text-sm font-medium text-zinc-300">What's on your mind?</label>
+        <label className="text-sm font-medium text-zinc-600 dark:text-zinc-300">What's on your mind?</label>
         <Textarea
           placeholder="Share your thoughts..."
           value={content}
           onChange={handleChange}
-          className="mt-2 min-h-52 resize-none bg-white/5 border-white/10 text-white placeholder-zinc-500"
+          className="mt-2 min-h-52 resize-none bg-slate-100 dark:bg-white/5 border-slate-300 dark:border-white/10 text-slate-900 dark:text-white placeholder-zinc-500"
         />
         <div className="mt-2 flex justify-between text-xs text-zinc-400">
           <span>{charCount} / {maxChars}</span>
@@ -48,7 +48,7 @@ export default function TextPostForm() {
       </div>
 
       <div className="space-y-2">
-        <label className="text-sm font-medium text-zinc-300">Mood</label>
+        <label className="text-sm font-medium text-zinc-600 dark:text-zinc-300">Mood</label>
         <div className="grid grid-cols-5 gap-2">
           {["😊", "😂", "😍", "😢", "😤"].map((emoji) => (
             <button

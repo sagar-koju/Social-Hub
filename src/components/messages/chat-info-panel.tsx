@@ -22,7 +22,7 @@ export function ChatInfoPanel({ conversation, className }: ChatInfoPanelProps) {
   }
 
   return (
-    <aside className={cn("flex h-full min-h-0 flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl", className)}>
+    <aside className={cn("flex h-full min-h-0 flex-col gap-4 rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl overflow-y-auto", className)}>
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}

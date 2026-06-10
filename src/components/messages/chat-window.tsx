@@ -38,7 +38,7 @@ export function ChatWindow({
 
   if (!conversation) {
     return (
-      <section className="flex h-screen items-center justify-center rounded-3xl border border-white/10 bg-white/5 p-8 text-center backdrop-blur-xl">
+      <section className="flex min-h-0 flex-1 items-center justify-center rounded-3xl border border-white/10 bg-white/5 p-8 text-center backdrop-blur-xl">
         <div className="max-w-sm space-y-3">
           <div className="mx-auto flex size-14 items-center justify-center rounded-2xl bg-cyan-400/10 text-cyan-200">
             <Sparkles className="size-6" />
@@ -170,7 +170,7 @@ export function ChatWindow({
               value={draft}
               onChange={(event) => onDraftChange(event.target.value)}
               placeholder={`Message ${conversation.name.split(" ")[0]}...`}
-              className="min-w-0 flex-1 rounded-full border border-white/10 bg-slate-900/70 px-4 py-3 text-white placeholder:text-slate-500"
+              className="min-w-0 flex-1 rounded-full border border-white/10 bg-slate-900/70 px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring focus:ring-slate-500"
             />
           </div>
            <Button

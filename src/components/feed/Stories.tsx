@@ -19,14 +19,13 @@ export default function Stories() {
       <div className="flex gap-3 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory">
         <motion.button
           whileTap={{ scale: 0.96 }}
-          whileHover={{ y: -3 }}
           className="group relative shrink-0 snap-start"
         >
-          <div className="flex h-26 w-20 flex-col items-center justify-center rounded-3xl border border-dashed border-white/10 bg-white/4 text-zinc-200 transition group-hover:border-indigo-400/40 group-hover:bg-white/7">
+          <div className="flex h-26 w-20 flex-col items-center justify-center rounded-3xl border border-dashed border-black/20 dark:border-white/10 bg-white/4 text-zinc-200 transition group-hover:border-indigo-400/40 group-hover:bg-white/7">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-br from-indigo-500 to-fuchsia-500 shadow-lg shadow-fuchsia-500/20">
               <Plus size={18} />
             </div>
-            <span className="mt-3 text-xs font-medium text-zinc-300">Add Story</span>
+            <span className="mt-3 text-xs font-medium text-zinc-600 dark:text-zinc-300">Add Story</span>
           </div>
         </motion.button>
 
@@ -35,7 +34,7 @@ export default function Stories() {
   key={s.id}
   className="group relative shrink-0 snap-start w-20 flex flex-col items-center"
 >
-  <div className="rounded-full border border-3 border-purple-400 p-[3px]">
+  <div className="rounded-full border-4 border-purple-500 p-[2px]">
     
     <div className="rounded-full">
       
@@ -47,7 +46,7 @@ export default function Stories() {
     </div>
   </div>
 
-  <div className="mt-2 text-center text-xs text-zinc-400 group-hover:text-white">
+  <div className="mt-2 text-center text-xs text-zinc-600 dark:text-zinc-300 group-hover:text-slate-900 dark:group-hover:text-white">
     {s.name}
   </div>
 </motion.button>

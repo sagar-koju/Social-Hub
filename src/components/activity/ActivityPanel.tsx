@@ -37,7 +37,7 @@ export default function ActivityPanel() {
       initial={{ opacity: 0, x: 10 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
-      className="sticky top-6"
+      className="h-full min-h-0"
     >
       <div className="rounded-3xl border border-white/10 bg-black/50 p-4 shadow-2xl shadow-black/30 backdrop-blur-xl">
         <div className="mb-4 flex items-center justify-between">
