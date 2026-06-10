@@ -36,7 +36,7 @@ export function StatisticsSection() {
   return (
     <section
       id="community"
-      className="py-20 md:py-32 relative overflow-hidden"
+      className="py-20 md:py-32 relative overflow-hidden bg-gradient-to-b from-white to-gray-100 dark:from-slate-900 dark:to-slate-950"
     >
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-slate-950 via-purple-950/20 to-slate-900" />
 

@@ -19,12 +19,12 @@ export default function PasswordInput({ value, onChange, placeholder }: Props) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder ?? "Password"}
-        className="w-full rounded-xl bg-white/3 border border-white/6 px-4 py-3 px-10 outline-none focus:ring-2 focus:ring-indigo-500 transition"
+        className="w-full rounded-xl bg-black/5 dark:bg-white/3 border border-black/20 dark:border-white/6 px-4 py-3 px-10 outline-none focus:ring-2 focus:ring-indigo-500 transition placeholder:text-zinc-500"
       />
       <button
         type="button"
         onClick={() => setShow((s) => !s)}
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-200/80"
+        className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-700/50 dark:text-zinc-200/80"
         aria-label="Toggle password visibility"
       >
         {show ? <EyeOff size={18} /> : <Eye size={18} />}

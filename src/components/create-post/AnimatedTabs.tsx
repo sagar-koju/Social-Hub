@@ -55,7 +55,7 @@ export default function AnimatedTabs({ activeTab, onTabChange }: AnimatedTabsPro
     <div className="space-y-2">
       {/* Desktop View - Horizontal Tabs */}
       <div className="hidden md:block">
-        <div className="inline-flex rounded-xl bg-white/5 border border-white/10 p-1">
+        <div className="inline-flex rounded-xl bg-black/5 dark:bg-white/5 border border-slate-300 dark:border-white/10 p-1">
           {postTypes.map((tab) => (
             <motion.button
               key={tab.id}
@@ -66,13 +66,13 @@ export default function AnimatedTabs({ activeTab, onTabChange }: AnimatedTabsPro
               {activeTab === tab.id && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute inset-0 bg-linear-to-r from-indigo-500/30 to-fuchsia-500/30 rounded-lg border border-white/20"
+                  className="absolute inset-0 bg-linear-to-r from-indigo-500 to-fuchsia-500 rounded-lg border border-slate-300 dark:border-white/20"
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
               <motion.div
                 className={`relative flex items-center gap-2 ${
-                  activeTab === tab.id ? "text-white" : "text-zinc-400"
+                  activeTab === tab.id ? "text-slate-900 dark:text-white" : "text-zinc-400"
                 }`}
                 animate={{ color: activeTab === tab.id ? "#ffffff" : "#a1a1a1" }}
               >
@@ -92,29 +92,22 @@ export default function AnimatedTabs({ activeTab, onTabChange }: AnimatedTabsPro
             onClick={() => onTabChange(tab.id)}
             className={`w-full rounded-lg px-4 py-3 text-left transition flex items-center gap-3 ${
               activeTab === tab.id
-                ? "bg-linear-to-r from-indigo-500/30 to-fuchsia-500/30 border border-white/30"
-                : "bg-white/5 border border-white/10"
+                ? "bg-linear-to-r from-slate-200 dark:from-indigo-500/30 to-slate-200 dark:to-fuchsia-500/30 border border-slate-300 dark:border-white/20 "
+                : "bg-white/5 dark:bg-black/5 border border-slate-300 dark:border-white/10"
             }`}
             whileTap={{ scale: 0.98 }}
           >
             <motion.div
-              animate={{ color: activeTab === tab.id ? "#ffffff" : "#a1a1a1" }}
+              animate={{ color: activeTab === tab.id ? "#000000 dark:#ffffff" : "#a1a1a1" }}
             >
               {tab.icon}
             </motion.div>
             <div className="flex-1">
-              <div className={activeTab === tab.id ? "text-white font-medium" : "text-zinc-400"}>
+              <div className={activeTab === tab.id ? "text-black dark:text-white font-medium" : "text-zinc-500"}>
                 {tab.label}
               </div>
               <div className="text-xs text-zinc-500">{tab.description}</div>
             </div>
-            {activeTab === tab.id && (
-              <motion.div
-                layoutId="activeMobileTab"
-                className="h-2 w-2 rounded-full bg-linear-to-r from-indigo-400 to-fuchsia-400"
-                transition={{ type: "spring", stiffness: 380, damping: 30 }}
-              />
-            )}
           </motion.button>
         ))}
       </div>

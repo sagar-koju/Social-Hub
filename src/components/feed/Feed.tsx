@@ -52,7 +52,7 @@ export default function Feed() {
       </motion.div>
 
       <div className="flex justify-center mt-4">
-        <button onClick={loadMore} className="px-4 py-2 rounded-xl bg-white/5 border border-white/6">Load more</button>
+        <button onClick={loadMore} className="px-4 py-2 rounded-xl text-slate-900 dark:text-white bg-white dark:bg-white/5 border border-slate-400 dark:border-white/6">Load more</button>
       </div>
     </div>
   );

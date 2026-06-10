@@ -22,8 +22,7 @@ export default function PostCard({ post, user }: { post: Post; user: { name: str
 
   return (
     <motion.article
-      whileHover={{ y: -4 }}
-      className="mb-4 rounded-3xl border border-white/10 bg-black/50 p-4 shadow-xl shadow-black/20 backdrop-blur-xl"
+      className="mb-4 rounded-3xl border border-slate-300 dark:border-white/10 bg-white dark:bg-black/50 p-4 shadow-md dark:shadow-black/20 backdrop-blur-xl"
     >
       <div className="flex gap-3">
         <div className="flex-1">
@@ -31,11 +30,11 @@ export default function PostCard({ post, user }: { post: Post; user: { name: str
             <div className="flex items-center gap-3">
               <Avatar name={user.name} online />
               <div>
-                <div className="flex items-center gap-1.5 font-semibold text-white">
+                <div className="flex items-center gap-1.5 font-semibold text-slate-900 dark:text-white">
                   {user.name}
                   {user.verified && <CheckCheck size={14} className="text-sky-400" />}
                 </div>
-                <div className="text-xs text-zinc-400">
+                <div className="text-xs text-slate-700 dark:text-zinc-400">
                   @{user.handle} · {post.timestamp}
                 </div>
               </div>
@@ -44,20 +43,20 @@ export default function PostCard({ post, user }: { post: Post; user: { name: str
             <button
               type="button"
               onClick={() => setSaved((value) => !value)}
-              className={`inline-flex h-10 w-10 items-center justify-center rounded-full border transition ${saved ? "border-indigo-400/40 bg-indigo-500/15 text-indigo-200" : "border-white/8 bg-white/5 text-zinc-300 hover:border-white/15 hover:bg-white/10"}`}
+              className={`inline-flex h-10 w-10 items-center justify-center transition ${saved ? "text-red-400" : " text-slate-700 dark:text-zinc-300"}`}
               aria-label="Save post"
             >
-              <Bookmark size={16} fill={saved ? "currentColor" : "none"} />
+              <Bookmark size={20} fill={saved ? "currentColor" : "none"} />
             </button>
           </div>
 
-          <div className="mt-3 text-sm leading-6 text-zinc-200">
+          <div className="mt-3 text-sm leading-6 text-slate-900 dark:text-zinc-200">
             {visibleContent}
             {shouldTruncate && (
               <button
                 type="button"
                 onClick={() => setExpanded((value) => !value)}
-                className="ml-2 inline-flex items-center gap-1 text-xs font-medium text-indigo-300 transition hover:text-indigo-200"
+                className="ml-2 inline-flex items-center gap-1 text-xs font-medium text-slate-500 dark:text-indigo-300 transition hover:text-indigo-200"
               >
                 {expanded ? (
                   <>
@@ -73,7 +72,8 @@ export default function PostCard({ post, user }: { post: Post; user: { name: str
           </div>
 
           {post.img && (
-            <div className="mt-4 overflow-hidden rounded-2xl border border-white/8 bg-linear-to-br from-indigo-500/30 via-slate-700/50 to-fuchsia-500/25 p-3 shadow-lg shadow-black/20">
+            // <div className="mt-4 overflow-hidden rounded-2xl border border-white/8 bg-linear-to-br from-indigo-500/30 via-slate-700/50 to-fuchsia-500/25 p-2 shadow-lg shadow-black/20">
+            <div className="mt-4 overflow-hidden rounded-2xl border border-white/8 bg-slate-200 dark:bg-slate-900 p-2">
               <div className="relative h-100 rounded-xl overflow-hidden">
                 <Image src={post.img} alt="Post content" fill className="object-cover" />
               </div>

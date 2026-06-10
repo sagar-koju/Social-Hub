@@ -39,15 +39,15 @@ export default function Sidebar() {
       transition={{ duration: 0.5 }}
       className="h-full min-h-0"
     >
-      <div className="rounded-3xl border border-white/10 bg-black/50 px-4 py-10 shadow-2xl shadow-black/30 backdrop-blur-xl transition duration-300">
-      <div className="mb-6 rounded-2xl border border-white/8 bg-white/4 p-3">
+      <div className="rounded-3xl border border-slate-300 dark:border-white/10 bg-white dark:bg-black/50 px-4 py-10 shadow-2xl shadow-black/30 backdrop-blur-xl transition duration-300">
+      <div className="mb-6 rounded-2xl border border-slate-300 dark:border-white/8 bg-black/4 dark:bg-white/4 p-3">
           <div className="flex items-center gap-3">
             <div className="relative">
               <div className="h-11 w-11 rounded-full bg-linear-to-br from-cyan-400 to-indigo-600" />
-              <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border border-black bg-emerald-400 shadow-lg shadow-emerald-400/30" />
+              <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border border-none dark:border-black bg-emerald-400 shadow-lg shadow-emerald-400/30" />
             </div>
             <div className="min-w-0 flex-1">
-              <div className="truncate text-sm font-medium text-white">Jane Doe</div>
+              <div className="truncate text-sm font-medium text-slate-900 dark:text-white">Jane Doe</div>
               <div className="truncate text-xs text-zinc-400">@janedoe · Pro creator</div>
             </div>
           </div>
@@ -61,18 +61,17 @@ export default function Sidebar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`group flex items-center gap-3 rounded-2xl px-3 py-2 text-sm transition-all duration-300 ${
+                className={`group flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-all duration-300 ${
                   active
-                    ? "bg-linear-to-r from-indigo-500/20 to-fuchsia-500/20 text-white shadow-lg shadow-indigo-500/10 ring-1 ring-white/10"
-                    : "text-zinc-300 hover:bg-white/5 hover:text-white"
+                    ? "bg-linear-to-r from-slate-200 to-slate-200 dark:from-indigo-500/20 dark:to-fuchsia-500/20 text-slate-600 dark:text-white shadow-indigo-500/10 ring-1 ring-white/10"
+                    : "text-slate-700 dark:text-zinc-300 hover:bg-slate-600/5 dark:hover:bg-white/5 hover:text-zinc-700 dark:hover:text-white"
                 } justify-start`}
                 aria-current={active ? "page" : undefined}
               >
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl">
+                <span className="flex h-8 w-10 items-center justify-center rounded-xl">
                   <Icon size={17} />
                 </span>
                 <span className="font-medium">{item.name}</span>
-                {active && <span className="ml-auto h-2 w-2 rounded-full bg-pink-400 shadow-lg shadow-pink-400/40" />}
               </Link>
             );
           })}

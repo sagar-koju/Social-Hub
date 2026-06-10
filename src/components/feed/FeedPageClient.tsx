@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Sidebar from "@/components/sidebar/Sidebar";
 import Feed from "@/components/feed/Feed";
 import ActivityPanel from "@/components/activity/ActivityPanel";
+import FollowUsers from "@/components/activity/FollowUsers";
 import TopNav from "@/components/navigation/TopNav";
 import BottomNav from "@/components/navigation/BottomNav";
 
@@ -13,7 +14,7 @@ export default function FeedPageClient() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.45 }}
-      className="flex h-[100svh] flex-col overflow-hidden bg-[#030313] text-white"
+      className="flex h-[100svh] flex-col overflow-hidden bg-slate-200 dark:bg-[#030313] text-white"
     >
       <TopNav />
 
@@ -28,7 +29,7 @@ export default function FeedPageClient() {
           </section>
 
           <aside className="hidden min-h-0 lg:col-span-3 lg:block lg:overflow-y-auto scrollbar-hide">
-            <ActivityPanel />
+            <FollowUsers />
           </aside>
         </div>
       </div>

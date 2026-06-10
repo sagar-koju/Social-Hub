@@ -23,7 +23,7 @@ export function Footer() {
   ]
 
   return (
-    <footer id="about" className="bg-linear-to-b from-slate-900 to-slate-950 border-t border-white/10">
+    <footer id="about" className="bg-linear-to-b from-gray-200 to-gray-100 dark:from-slate-900 dark:to-slate-950 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Main Footer Content */}
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
@@ -39,9 +39,9 @@ export function Footer() {
               <div className="w-10 h-10 rounded-xl bg-linear-to-br from-blue-400 to-purple-600 flex items-center justify-center">
                 <span className="text-white font-bold text-lg">SH</span>
               </div>
-              <span className="text-xl font-bold text-white">SocialHub</span>
+              <span className="text-xl font-bold text-black dark:text-white">SocialHub</span>
             </div>
-            <p className="text-slate-400 text-sm">
+            <p className="text-slate-900 dark:text-slate-400 text-sm">
               Connect, share, and grow with millions of creators worldwide.
             </p>
           </motion.div>
@@ -58,13 +58,13 @@ export function Footer() {
               }}
               viewport={{ once: true }}
             >
-              <h4 className="font-semibold text-white mb-4">{category}</h4>
+              <h4 className="font-semibold text-slate-900 dark:text-white mb-4">{category}</h4>
               <ul className="space-y-3">
                 {links.map((link) => (
                   <li key={link}>
                     <a
                       href="#"
-                      className="text-slate-400 hover:text-white transition-colors duration-300 text-sm"
+                      className="text-slate-900 dark:text-slate-400 hover:text-slate-500 dark:hover:text-white transition-colors duration-300 text-sm"
                     >
                       {link}
                     </a>
@@ -76,7 +76,7 @@ export function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-linear-to-r from-transparent via-white/10 to-transparent my-12" />
+        <div className="h-px bg-linear-to-r from-transparent via-black  dark:via-white/10 to-transparent my-12" />
 
         {/* Bottom Footer */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
@@ -85,9 +85,9 @@ export function Footer() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-slate-400 text-sm"
+            className="text-slate-900 dark:text-slate-400 text-sm"
           >
-            © {currentYear} SocialHub. All rights reserved. • Made with ❤️
+            © {currentYear} SocialHub. All rights reserved.
           </motion.p>
 
           {/* Social Links */}
@@ -102,7 +102,7 @@ export function Footer() {
               <motion.a
                 key={index}
                 href={social.href}
-                className="w-10 h-10 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center text-slate-400 hover:text-white hover:border-white/30 hover:bg-white/10 transition-all duration-300"
+                className="w-10 h-10 rounded-full border dark:border-white/10 bg-white/5 backdrop-blur-sm flex items-center justify-center text-slate-900 dark:text-slate-400 hover:black/30 dark:hover:text-white hover:border-slate-600 dark:hover:border-white/30 hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-300"
                 whileHover={{ scale: 1.1, y: -3 }}
                 whileTap={{ scale: 0.95 }}
               >

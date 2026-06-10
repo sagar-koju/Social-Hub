@@ -28,7 +28,7 @@ export default function CreatePageClient() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.45 }}
-      className="min-h-screen bg-[#030313] text-white"
+      className="min-h-screen bg-white dark:bg-[#030313] text-slate-900 dark:text-white"
     >
       <TopNav />
 

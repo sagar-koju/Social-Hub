@@ -31,7 +31,7 @@ const EnhancedButton = React.forwardRef<
       secondary:
         'bg-slate-800 text-white hover:bg-slate-700 hover:scale-105 border border-slate-700',
       outline:
-        'border-2 border-slate-500 text-slate-300 hover:border-blue-400 hover:text-blue-400 hover:shadow-lg hover:shadow-blue-500/20',
+        'border-2 border-slate-500 text-slate-700 dark:text-slate-300 hover:border-blue-400 hover:text-blue-400 hover:shadow-lg hover:shadow-blue-500/20',
       gradient:
         'bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 text-white hover:shadow-lg hover:shadow-blue-500/50 hover:scale-105',
     }
