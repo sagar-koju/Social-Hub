@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { Bell, Search, Sparkles, User, X, CheckCheck, Clock3, Filter, Send, LogOut } from "lucide-react";
 import ThemeToggle from "@/components/navigation/ThemeToggle";
-import { authService } from "@/services/authService";
 import { useRouter } from "next/navigation";
 import { useLogout } from "@/hooks/useLogin";
 import { useQueryClient } from "@tanstack/react-query";
@@ -42,8 +41,10 @@ export default function TopNav() {
     logoutMutation.mutate(undefined, {
       onSuccess: () => {
         queryClient.clear();
-        // localStorage.removeItem("token");
-        router.push("/login");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        queryClient.clear();
+        router.replace("/login");
       },
       onError: (error) => {
         console.error("Logout failed:", error);

@@ -16,7 +16,11 @@ import {
   Sparkles,
 } from "lucide-react";
 
-const nav = [
+export default function Sidebar() {
+  const pathname = usePathname();
+  const { openModal } = useCreatePostModal();
+
+  const nav = [
   { name: "Home", href: "/feed", icon: Home },
   { name: "Explore", href: "/explore", icon: Compass },
   { name: "Messages", href: "/messages", icon: MessageSquare },
@@ -25,10 +29,6 @@ const nav = [
   { name: "Profile", href: "/profile", icon: User },
   { name: "Settings", href: "/settings", icon: Settings },
 ];
-
-export default function Sidebar() {
-  const pathname = usePathname();
-  const { openModal } = useCreatePostModal();
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
