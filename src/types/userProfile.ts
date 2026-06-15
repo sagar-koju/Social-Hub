@@ -1,0 +1,18 @@
+export type UserProfile = {
+  id: string;
+  username: string;
+  email: string;
+  displayName: string;
+  bio: string | null;
+  avatarUrl: string | null;
+  bannerUrl: string | null;
+  isVerified: boolean;
+  isPrivate: boolean;
+  role: string;
+  status: string;
+  lastSeenAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  followerCount: number;
+  followingCount: number;
+};

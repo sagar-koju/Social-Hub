@@ -1,5 +1,5 @@
 export const endpoints = {
-    auth:{
+    auth: {
         register: `/api/v1/auth/register`,
         login: `/api/v1/auth/login`,
         refresh: `/api/v1/auth/refresh`,
@@ -9,7 +9,7 @@ export const endpoints = {
         authenticateUser: `/api/v1/auth/me`,
     },
 
-    users:{
+    users: {
         activeStatus: 'api/v1/users/{id}/presence',
         getMyProfile: 'api/v1/users/me',
         updateMyProfile: 'api/v1/users/me',
@@ -30,7 +30,7 @@ export const endpoints = {
 
     feed: {
         getHomeFeed: 'api/v1/feed',
-        getFollwoingFeed: 'api/v1/feed/following',
+        getFollowingFeed: 'api/v1/feed/following',
         getTrendingFeed: 'api/v1/feed/trending',
     },
 
@@ -69,5 +69,5 @@ export const endpoints = {
         getMyConversations: 'api/v1/conversations',
     },
 
-   
+
 }

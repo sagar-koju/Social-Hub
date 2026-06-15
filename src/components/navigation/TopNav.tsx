@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-import { Bell, Search, Sparkles, User, X, CheckCheck, Clock3, Filter, Send, LogOut } from "lucide-react";
+import { Bell, Search, Sparkles, User, X, CheckCheck, Clock3, Filter, Send, LogOut, RefreshCcw } from "lucide-react";
 import ThemeToggle from "@/components/navigation/ThemeToggle";
 import { useRouter } from "next/navigation";
 import { useLogout } from "@/hooks/useLogin";
@@ -21,9 +21,6 @@ const notifications = [
   { id: 2, title: "Nova Labs followed you", time: "12m ago", read: false },
   { id: 3, title: "Weekly recap is ready", time: "1h ago", read: true },
 ];
-
-
-
 
 export default function TopNav() {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -226,6 +223,10 @@ export default function TopNav() {
 
           <button className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/70 text-slate-700 transition hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-zinc-200 dark:hover:border-white/20 dark:hover:bg-white/10">
             <User size={17} />
+          </button>
+
+          <button className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/70 text-slate-700 transition hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-zinc-200 dark:hover:border-white/20 dark:hover:bg-white/10">
+            <RefreshCcw size={17} />
           </button>
 
           <button onClick={handleLogout} className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/70 text-slate-700 transition hover:border-slate-300 hover:bg-white dark:border-white/10 dark:bg-white/5 dark:text-zinc-200 dark:hover:border-white/20 dark:hover:bg-white/10">

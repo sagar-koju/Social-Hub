@@ -7,6 +7,7 @@ import { Bookmark, CheckCheck, ChevronDown, ChevronUp, Heart, MessageCircle, Rep
 import type { Post } from "@/types/post";
 import Image from "next/image";
 
+
 export default function PostCard({ post, user }: { post: Post; user: { name: string; handle: string; verified?: boolean } }) {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(post.likes);
@@ -71,7 +72,7 @@ export default function PostCard({ post, user }: { post: Post; user: { name: str
             )}
           </div>
 
-          {post.img && (
+          {post.postType === "image" && post.img && (
             // <div className="mt-4 overflow-hidden rounded-2xl border border-white/8 bg-linear-to-br from-indigo-500/30 via-slate-700/50 to-fuchsia-500/25 p-2 shadow-lg shadow-black/20">
             <div className="mt-4 overflow-hidden rounded-2xl border border-white/8 bg-slate-200 dark:bg-slate-900 p-2">
               <div className="relative h-100 rounded-xl overflow-hidden">
