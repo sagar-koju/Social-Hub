@@ -13,8 +13,8 @@ export default function PostCard({ post, user }: { post: Post; user: { name: str
   const [likes, setLikes] = useState(post.likes);
   const [saved, setSaved] = useState(false);
   const [expanded, setExpanded] = useState(false);
-  const shouldTruncate = post.content.length > 110;
-  const visibleContent = shouldTruncate && !expanded ? `${post.content.slice(0, 110)}…` : post.content;
+  const shouldTruncate = post.content.length > 250;
+  const visibleContent = shouldTruncate && !expanded ? `${post.content.slice(0, 250)}…` : post.content;
 
   function toggleLike() {
     setLiked((s) => !s);
@@ -51,7 +51,7 @@ export default function PostCard({ post, user }: { post: Post; user: { name: str
             </button>
           </div>
 
-          <div className="mt-3 text-sm leading-6 text-slate-900 dark:text-zinc-200">
+          <div className="mt-3 ml-3 text-sm leading-6 text-slate-900 dark:text-zinc-200">
             {visibleContent}
             {shouldTruncate && (
               <button
@@ -81,10 +81,10 @@ export default function PostCard({ post, user }: { post: Post; user: { name: str
             </div>
           )}
 
-          <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-zinc-400 sm:gap-4">
+          <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-zinc-600 dark:text-zinc-300 sm:gap-4">
             <button
               onClick={toggleLike}
-              className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 transition ${liked ? "border-red-400/30 bg-red-500 text-white" : "border-white/8 bg-white/5 hover:border-red-400/30 hover:bg-red-500/10 hover:text-red-300"}`}
+              className={`inline-flex items-center gap-2 rounded-full border px-3 py-2 transition ${liked ? "border-red-400/30 bg-red-500 text-white" : "border-black/8 dark:border-white/8 bg-white/5 hover:border-red-400/30 hover:bg-red-500/10 hover:text-red-300"}`}
             >
               <motion.span whileTap={{ scale: 0.9 }}>
                 <Heart size={16} fill={liked ? "currentColor" : "none"} />
@@ -92,11 +92,11 @@ export default function PostCard({ post, user }: { post: Post; user: { name: str
               <span>{likes}</span>
             </button>
 
-            <button className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/5 px-3 py-2 transition hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-indigo-300">
+            <button className="inline-flex items-center gap-2 rounded-full border border-black/8 dark:border-white/8 dark:bg-white/5 px-3 py-2 transition hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-indigo-300">
               <MessageCircle size={16} /> <span>{post.comments}</span>
             </button>
 
-            <button className="inline-flex items-center gap-2 rounded-full border border-white/8 bg-white/5 px-3 py-2 transition hover:border-emerald-400/30 hover:bg-emerald-500/10 hover:text-emerald-300">
+            <button className="inline-flex items-center gap-2 rounded-full border border-black/8 dark:border-white/8 dark:bg-white/5 px-3 py-2 transition hover:border-emerald-400/30 hover:bg-emerald-500/10 hover:text-emerald-300">
               <Repeat size={16} /> <span>Repost</span>
             </button>
           </div>

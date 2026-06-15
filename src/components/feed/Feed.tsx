@@ -7,6 +7,7 @@ import Stories from "@/components/feed/Stories";
 import PostCard from "@/components/feed/PostCard";
 import SkeletonPost from "@/components/feed/SkeletonPost";
 import { posts as mockPosts, users as mockUsers } from "@/lib/mock-data/mockFeed";
+import { RefreshCcw } from "lucide-react";
 
 export default function Feed() {
   const [posts, setPosts] = useState<any[]>([]);
@@ -52,7 +53,9 @@ export default function Feed() {
       </motion.div>
 
       <div className="flex justify-center mt-4">
-        <button onClick={loadMore} className="px-4 py-2 rounded-xl text-slate-900 dark:text-white bg-white dark:bg-white/5 border border-slate-400 dark:border-white/6">Load more</button>
+        <button onClick={loadMore} className="px-4 py-2 rounded-xl text-slate-900 dark:text-white bg-white dark:bg-white/5 border border-slate-400 dark:border-white/6">
+          <RefreshCcw size={18} className="text-slate-600 dark:text-slate-200" />
+        </button>
       </div>
     </div>
   );
