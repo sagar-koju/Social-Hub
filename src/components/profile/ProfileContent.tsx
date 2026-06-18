@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 import Avatar from "@/components/ui/avatar";
 import type { Post } from "@/types/post";
 import { UserProfile } from "@/types/userProfile"
+import { useGetPostByUsername } from "@/hooks/usePosts";
+import {useParams}  from "next/navigation";
 
 export default function ProfileContent({
   user,
@@ -19,7 +21,16 @@ export default function ProfileContent({
   const [tab, setTab] = useState<"my" | "liked" | "saved">("my");
   const [query, setQuery] = useState("");
 
-  const myPosts = useMemo(() => posts.filter((p) => p.userId === user.id), [posts, user.id]);
+  // const myPosts = useMemo(() => posts.filter((p) => p.id === user.id), [posts, user.id]);
+  const params = useParams();
+  const username = params.username as string;
+  const {data, isLoading, error, fetchNextPage, hasNextPage} = useGetPostByUsername(username);
+  const myPosts = data?.pages.flatMap(page => page.posts) ?? [];
+
+  if(!isLoading && error) {
+    
+    console.log(myPosts, "myPosts in profile content");
+  }
   const likedPosts = useMemo(() => posts.filter((p) => likedIds.includes(p.id)), [posts, likedIds]);
   const savedPosts = useMemo(() => posts.filter((p) => savedIds.includes(p.id)), [posts, savedIds]);
 
@@ -30,6 +41,8 @@ export default function ProfileContent({
     if (!q) return source;
     return source.filter((p) => p.content.toLowerCase().includes(q));
   }, [source, query]);
+
+  
 
   return (
     <div className="w-full border border-white/10 bg-black/50 p-2 md:px-4 md:py-10 shadow-2xl shadow-black/30 backdrop-blur-xl transition duration-300 rounded-3xl">
@@ -129,7 +142,7 @@ export default function ProfileContent({
           </div>
 
           {/* Posts Grid */}
-          <div className="mt-6">
+          {isLoading && <div className="mt-6">
             {source.length === 0 ? (
               <div className="text-sm text-zinc-400">No posts to show.</div>
             ) : (
@@ -147,7 +160,7 @@ export default function ProfileContent({
                 ))}
               </div>
             )}
-          </div>
+          </div>}
         </div>
       </div>
     </div>

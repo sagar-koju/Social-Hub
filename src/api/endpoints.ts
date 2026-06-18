@@ -42,12 +42,12 @@ export const endpoints = {
     },
 
     posts: {
-        //19
+        //18
         createPost: 'api/v1/posts',
         getPostById: 'api/v1/posts/{postId}',
         updatePost: 'api/v1/posts/{postId}',
         deletePost: 'api/v1/posts/{postId}',
-        likedPost: 'api/v1/posts/{postId}/likes',
+        getUsersWhoLikedPost: 'api/v1/posts/{postId}/likes',
         getPostByUsername: 'api/v1/users/{username}/posts',
         likePost: 'api/v1/posts/{postId}/like',
         unlikePost: 'api/v1/posts/{postId}/like',
@@ -57,7 +57,7 @@ export const endpoints = {
         unlikeComment: 'api/v1/comments/{commentId}/like',
         deleteComment: 'api/v1/comments/{commentId}',
         getReplyComments: 'api/v1/comments/{commentId}/replies',
-        createReplyComment: 'api/v1/comments/{commentId}/replies',
+        // createReplyComment: 'api/v1/comments/{commentId}/replies',
         bookmarkPost: 'api/v1/posts/{postId}/bookmark',
         removeBookmark: 'api/v1/posts/{postId}/bookmark',
         getMyBookmarks: 'api/v1/users/me/bookmarks',

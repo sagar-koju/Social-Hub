@@ -6,12 +6,12 @@ import Avatar from "@/components/ui/avatar";
 import { Bookmark, CheckCheck, ChevronDown, ChevronUp, Heart, MessageCircle, Repeat } from "lucide-react";
 import type { Post } from "@/types/post";
 import Image from "next/image";
+import { timeAgo } from "@/lib/utils"
 
-
-export default function PostCard({ post, user }: { post: Post; user: { name: string; handle: string; verified?: boolean } }) {
-  const [liked, setLiked] = useState(false);
-  const [likes, setLikes] = useState(post.likes);
-  const [saved, setSaved] = useState(false);
+export default function PostCard({ post }: { post: Post }) {
+  const [liked, setLiked] = useState(post.isLiked);
+  const [likes, setLikes] = useState(post.likeCount);
+  const [saved, setSaved] = useState(post.isBookmarked);
   const [expanded, setExpanded] = useState(false);
   const shouldTruncate = post.content.length > 250;
   const visibleContent = shouldTruncate && !expanded ? `${post.content.slice(0, 250)}…` : post.content;
@@ -29,14 +29,14 @@ export default function PostCard({ post, user }: { post: Post; user: { name: str
         <div className="flex-1">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <Avatar name={user.name} online />
+              <Avatar name={post.author.displayName} online />
               <div>
                 <div className="flex items-center gap-1.5 font-semibold text-slate-900 dark:text-white">
-                  {user.name}
-                  {user.verified && <CheckCheck size={14} className="text-sky-400" />}
+                  {post.author.displayName}
+                  {post.author.isVerified && <CheckCheck size={14} className="text-sky-400" />}
                 </div>
                 <div className="text-xs text-slate-700 dark:text-zinc-400">
-                  @{user.handle} · {post.timestamp}
+                  @{post.author.username} · {timeAgo(post.updatedAt)}
                 </div>
               </div>
             </div>
@@ -50,6 +50,8 @@ export default function PostCard({ post, user }: { post: Post; user: { name: str
               <Bookmark size={20} fill={saved ? "currentColor" : "none"} />
             </button>
           </div>
+
+          <div className="border border-b-slate-300 dark:border-white/10 mt-3"></div>
 
           <div className="mt-3 ml-3 text-sm leading-6 text-slate-900 dark:text-zinc-200">
             {visibleContent}
@@ -89,15 +91,15 @@ export default function PostCard({ post, user }: { post: Post; user: { name: str
               <motion.span whileTap={{ scale: 0.9 }}>
                 <Heart size={16} fill={liked ? "currentColor" : "none"} />
               </motion.span>
-              <span>{likes}</span>
+              <span>{post.likeCount}</span>
             </button>
 
             <button className="inline-flex items-center gap-2 rounded-full border border-black/8 dark:border-white/8 dark:bg-white/5 px-3 py-2 transition hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-indigo-300">
-              <MessageCircle size={16} /> <span>{post.comments}</span>
+              <MessageCircle size={16} /> <span>{post.commentCount}</span>
             </button>
 
             <button className="inline-flex items-center gap-2 rounded-full border border-black/8 dark:border-white/8 dark:bg-white/5 px-3 py-2 transition hover:border-emerald-400/30 hover:bg-emerald-500/10 hover:text-emerald-300">
-              <Repeat size={16} /> <span>Repost</span>
+              <Repeat size={16} /> <span>{post.shareCount}</span>
             </button>
           </div>
         </div>

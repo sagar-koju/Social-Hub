@@ -3,7 +3,7 @@
 import { useContext } from "react";
 import { CreatePostContext } from "@/providers/create-post-provider";
 import { useMutation } from '@tanstack/react-query';
-import { postsService } from "@/services/postsService";
+import { postServices } from "@/services/postServices";
 
 export function useCreatePostModal() {
   const context = useContext(CreatePostContext);
@@ -21,7 +21,7 @@ type CreatePostPayload = {
 export const useCreatePost = () => {
   return useMutation({
     mutationFn: (payload: CreatePostPayload) => {
-      return postsService.createPost({
+      return postServices.createPost({
         content: payload.content,
         visibility: payload.visibility ?? "PUBLIC",
       });
