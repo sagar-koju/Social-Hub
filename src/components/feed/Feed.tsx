@@ -13,6 +13,19 @@ export default function Feed() {
 
   // const myFeed = data?.data??[];
 
+   // const handleScroll = () => {
+  //   console.log(window.scrollY, "scrollY");
+  //   const bottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight;
+  //   if (bottom && hasNextPage) {
+  //     fetchNextPage();
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, [hasNextPage, fetchNextPage]);
+
   console.log(myFeed, "myFeed");
 
   return (
