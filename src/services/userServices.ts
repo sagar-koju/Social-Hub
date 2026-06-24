@@ -2,6 +2,17 @@ import { apiClient } from "@/lib/apiClient";
 import { endpoints } from "@/api/endpoints";
 import type { UserProfile } from "@/types/userProfile";
 
+export interface SearchUser {
+    id: string;
+    username: string;
+    displayName: string;
+    avatarUrl: string | null;
+    isVerified: boolean;
+    isPrivate: boolean;
+    bio: string | null;
+}
+
+
 export const userServices = {
     async getMyProfile(): Promise<UserProfile> {
         const { data } = await apiClient.get<UserProfile>(endpoints.users.getMyProfile);
@@ -15,8 +26,8 @@ export const userServices = {
         const { data } = await apiClient.delete(endpoints.users.deleteMyProfile);
         return data;
     },
-    async searchUsers(paylod: { username: string }) {
-        const { data } = await apiClient.get(endpoints.users.searchUsers, { params: paylod });
+    async searchUsers({ q, limit = 10, offset = 0 }: { q: string; limit?: number; offset?: number }): Promise<SearchUser[]> {
+        const { data } = await apiClient.get<SearchUser[]>(endpoints.users.searchUsers, { params: { q, limit, offset } });
         return data;
     },
     async getBlockedUsers() {
@@ -27,8 +38,9 @@ export const userServices = {
         const { data } = await apiClient.get(endpoints.users.getMutedUsers);
         return data;
     },
-    async getUserProfile(payload: { username: string }) {
-        const { data } = await apiClient.get(endpoints.users.getBlockedUsers, { params: payload });
+    async getUserProfile(payload: { username: string }): Promise<UserProfile> {
+        const { username } = payload;
+        const { data } = await apiClient.get(endpoints.users.getUserProfile.replace("{username}", username));
         return data;
     },
     async followUser(payload: { username: string }) {

@@ -5,7 +5,7 @@ import Avatar from "@/components/ui/avatar";
 import type { Post } from "@/types/post";
 import { UserProfile } from "@/types/userProfile"
 import { useGetPostByUsername } from "@/hooks/usePosts";
-import {useParams}  from "next/navigation";
+
 
 export default function ProfileContent({
   user,
@@ -21,14 +21,12 @@ export default function ProfileContent({
   const [tab, setTab] = useState<"my" | "liked" | "saved">("my");
   const [query, setQuery] = useState("");
 
-  // const myPosts = useMemo(() => posts.filter((p) => p.id === user.id), [posts, user.id]);
-  const params = useParams();
-  const username = params.username as string;
-  const {data, isLoading, error, fetchNextPage, hasNextPage} = useGetPostByUsername(username);
+  // use the username from the already-available user prop instead of useParams()
+  const { data, isLoading, error, fetchNextPage, hasNextPage } = useGetPostByUsername(user.username);
   const myPosts = data?.pages.flatMap(page => page.posts) ?? [];
 
-  if(!isLoading && error) {
-    
+  if (!isLoading && error) {
+
     console.log(myPosts, "myPosts in profile content");
   }
   const likedPosts = useMemo(() => posts.filter((p) => likedIds.includes(p.id)), [posts, likedIds]);
@@ -42,7 +40,7 @@ export default function ProfileContent({
     return source.filter((p) => p.content.toLowerCase().includes(q));
   }, [source, query]);
 
-  
+
 
   return (
     <div className="w-full border border-white/10 bg-black/50 p-2 md:px-4 md:py-10 shadow-2xl shadow-black/30 backdrop-blur-xl transition duration-300 rounded-3xl">

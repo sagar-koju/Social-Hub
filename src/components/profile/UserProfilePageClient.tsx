@@ -1,34 +1,26 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import TopNav from "@/components/navigation/TopNav";
 import Sidebar from "@/components/sidebar/Sidebar";
 import BottomNav from "@/components/navigation/BottomNav";
 import ProfileContent from "@/components/profile/ProfileContent";
+import { useGetUserProfile } from "@/hooks/useProfile";
 import type { Post } from "@/types/post";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
-import { useRouter } from "next/navigation";
-import { useGetMyProfile } from "@/hooks/useProfile";
 
-export default function ProfilePageClient({
+export default function UserProfilePageClient({
+  username,
   posts = [],
   likedIds = [],
-  savedIds = [],
+  savedIds = []
 }: {
-  posts?: Post[];
-  likedIds?: string[];
-  savedIds?: string[];
+  username: string,
+  posts?: Post[],
+  likedIds?: string[],
+  savedIds?: string[]
 }) {
-  const router = useRouter();
-  // const { data: currentUser, isLoading } = useCurrentUser();
-  const { data: user, isLoading } = useGetMyProfile();
-
-  useEffect(() => {
-    if (!isLoading && !user) {
-      router.replace("/login");
-    }
-  }, [isLoading, user, router]);
+  const { data: user, isLoading, isError } = useGetUserProfile(username);
 
   if (isLoading) {
     return (
@@ -38,7 +30,13 @@ export default function ProfilePageClient({
     );
   }
 
-  if (!user) return null;
+  if (isError || !user) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-[#030313] text-white text-sm">
+        User not found.
+      </div>
+    );
+  }
 
   return (
     <>
@@ -59,9 +57,9 @@ export default function ProfilePageClient({
             <section className="md:col-span-9 lg:col-span-9">
               <ProfileContent
                 user={user}
-                posts={posts}
-                likedIds={likedIds}
-                savedIds={savedIds}
+                posts={[]}
+                likedIds={[]}
+                savedIds={[]}
               />
             </section>
           </div>

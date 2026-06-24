@@ -13,6 +13,8 @@ export type UserProfile = {
   lastSeenAt: string | null;
   createdAt: string;
   updatedAt: string;
+  deletedAt: string;
+  isFollowing: boolean;
   followerCount: number;
   followingCount: number;
 };

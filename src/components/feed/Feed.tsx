@@ -6,27 +6,20 @@ import PostCard from "@/components/feed/PostCard";
 import SkeletonPost from "@/components/feed/SkeletonPost";
 import { useGetHomeFeed } from "@/hooks/useFeed";
 import { Post } from "@/types/post";
+import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 
 export default function Feed() {
-  const { data, isLoading, error } = useGetHomeFeed();
+  const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetHomeFeed();
   const myFeed = data?.pages.flatMap(page => page.data) ?? [];
+  const { ref, inView } = useInView();
 
-  // const myFeed = data?.data??[];
 
-   // const handleScroll = () => {
-  //   console.log(window.scrollY, "scrollY");
-  //   const bottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight;
-  //   if (bottom && hasNextPage) {
-  //     fetchNextPage();
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, [hasNextPage, fetchNextPage]);
-
-  console.log(myFeed, "myFeed");
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage, isFetchingNextPage]);
 
   return (
     <div>
@@ -45,6 +38,13 @@ export default function Feed() {
         {!isLoading && myFeed?.map((p: Post) => (
           <PostCard key={p.id} post={p} />
         ))}
+        {/* Invisible element at the bottom to trigger intersection observer */}
+        <div ref={ref} className="h-10 w-full" />
+        {isFetchingNextPage && (
+          <div className="py-4">
+            <SkeletonPost />
+          </div>
+        )}
       </motion.div>
     </div>
   );

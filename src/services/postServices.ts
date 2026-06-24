@@ -37,7 +37,8 @@ export const postServices = {
         return data;
     },
 
-    async getPostByUsername(payload:{ username: string; limit?: number; cursor?: string }) {
+    // querypath parameter example
+    async getPostByUsername(payload: { username: string; limit?: number; cursor?: string }) {
         const { username, limit, cursor } = payload;
         const { data } = await apiClient.get(endpoints.posts.getPostByUsername.replace("{username}", username), { params: { limit, ...(cursor && { cursor }) } });
         return data;
@@ -69,11 +70,6 @@ export const postServices = {
         const { data } = await apiClient.get(endpoints.posts.getReplyComments, { params: { commentId, limit, cursor } });
         return data;
     },
-    async createReplyComment(payload: { commentId: string; content: string }) {
-        const { data } = await apiClient.post(endpoints.posts.createReplyComment, payload);
-        return data;
-    },
-
     async bookmarkPost(payload: { postId: string }) {
         const { data } = await apiClient.post(endpoints.posts.bookmarkPost, payload);
         return data;
@@ -92,25 +88,4 @@ export const postServices = {
         const { data } = await apiClient.get(endpoints.posts.getPostByHashtag, { params: { hashtag, limit, cursor } });
         return data;
     },
-
-
-    // createPost: 'api/v1/posts',
-    //     getPostById: 'api/v1/posts/{postId}',
-    //     updatePost: 'api/v1/posts/{postId}',
-    //     deletePost: 'api/v1/posts/{postId}',
-    //     likedPost: 'api/v1/posts/{postId}/likes',
-    //     getPostByUsername: 'api/v1/users/{username}/posts',
-    //     likePost: 'api/v1/posts/{postId}/like',
-    //     unlikePost: 'api/v1/posts/{postId}/like',
-    //     createComment: 'api/v1/posts/{postId}/comments',
-    //     getComments: 'api/v1/posts/{postId}/comments',
-    //     likeComment: 'api/v1/comments/{commentId}/like',
-    //     unlikeComment: 'api/v1/comments/{commentId}/like',
-    //     deleteComment: 'api/v1/comments/{commentId}',
-    //     getReplyComments: 'api/v1/comments/{commentId}/replies',
-    //     createReplyComment: 'api/v1/comments/{commentId}/replies',
-    //     bookmarkPost: 'api/v1/posts/{postId}/bookmark',
-    //     removeBookmark: 'api/v1/posts/{postId}/bookmark',
-    //     getMyBookmarks: 'api/v1/users/me/bookmarks',
-    //     getPostByHashtag: 'api/v1/hashtags/{hashtag}/posts',
 }

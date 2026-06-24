@@ -20,7 +20,6 @@ export default function PostCard({ post }: { post: Post }) {
     setLiked((s) => !s);
     setLikes((l) => (liked ? l - 1 : l + 1));
   }
-
   return (
     <motion.article
       className="mb-4 rounded-3xl border border-slate-300 dark:border-white/10 bg-white dark:bg-black/50 p-4 shadow-md dark:shadow-black/20 backdrop-blur-xl"

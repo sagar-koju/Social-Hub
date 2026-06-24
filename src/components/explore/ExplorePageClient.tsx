@@ -45,7 +45,7 @@ export default function ExplorePageClient() {
               <TrendingTopicsWidget compact />
             </div>
 
-            <PopularPostsSection posts={topPosts} />
+            {/* <PopularPostsSection posts={topPosts} /> */}
 
             <BrowseHashtagsSection />
 
