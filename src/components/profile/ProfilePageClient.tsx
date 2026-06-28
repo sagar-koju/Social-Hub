@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 import TopNav from "@/components/navigation/TopNav";
 import Sidebar from "@/components/sidebar/Sidebar";
 import BottomNav from "@/components/navigation/BottomNav";
-import ProfileContent from "@/components/profile/ProfileContent";
+import MyProfileContent from "@/components/profile/MyProfileContent";
 import type { Post } from "@/types/post";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useRouter } from "next/navigation";
-import { useGetMyProfile } from "@/hooks/useProfile";
+import { useGetMyProfile } from "@/components/profile/hooks/useProfile";
 
 export default function ProfilePageClient({
   posts = [],
@@ -32,7 +32,7 @@ export default function ProfilePageClient({
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-[#030313] text-white text-sm">
+      <div className="flex items-center justify-center h-screen bg-slate-100 dark:bg-[#030313] text-slate-900 dark:text-white text-sm">
         Loading...
       </div>
     );
@@ -46,7 +46,7 @@ export default function ProfilePageClient({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.45 }}
-        className="min-h-screen bg-[#030313] text-white"
+        className="min-h-screen bg-slate-100 dark:bg-[#030313] text-slate-900 dark:text-white"
       >
         <TopNav />
 
@@ -57,7 +57,7 @@ export default function ProfilePageClient({
             </aside>
 
             <section className="md:col-span-9 lg:col-span-9">
-              <ProfileContent
+              <MyProfileContent
                 user={user}
                 posts={posts}
                 likedIds={likedIds}

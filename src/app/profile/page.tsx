@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function ProfilePage() {
   return (
     <ProfilePageClient
-      posts={posts}
+      //posts={posts}
       likedIds={["p2", "p10"]}
       savedIds={["p1", "p3", "p10"]}
     />

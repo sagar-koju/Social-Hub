@@ -27,13 +27,13 @@ export const postServices = {
         return data;
     },
 
-    async likePost({ postId, limit, cursor }: { postId: string; limit?: number; cursor?: string }) {
-        const { data } = await apiClient.post(endpoints.posts.likePost, { params: { postId, limit, cursor } });
+    async likePost({ postId }: { postId: string; }) {
+        const { data } = await apiClient.post(endpoints.posts.likePost.replace("{postId}", postId));
         return data;
     },
 
-    async unlikePost({ postId, limit, cursor }: { postId: string; limit?: number; cursor?: string }) {
-        const { data } = await apiClient.delete(endpoints.posts.likePost, { params: { postId, limit, cursor } });
+    async unlikePost({ postId }: { postId: string; }) {
+        const { data } = await apiClient.delete(endpoints.posts.likePost.replace("{postId}", postId));
         return data;
     },
 

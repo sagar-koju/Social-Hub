@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import TopNav from "@/components/navigation/TopNav";
 import Sidebar from "@/components/sidebar/Sidebar";
 import BottomNav from "@/components/navigation/BottomNav";
-import ProfileContent from "@/components/profile/ProfileContent";
-import { useGetUserProfile } from "@/hooks/useProfile";
+import UserProfileContent from "@/components/profile/UserProfileContent";
+import { useGetUserProfile } from "@/components/profile/hooks/useProfile";
 import type { Post } from "@/types/post";
 
 export default function UserProfilePageClient({
@@ -44,7 +44,7 @@ export default function UserProfilePageClient({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.45 }}
-        className="min-h-screen bg-[#030313] text-white"
+        className="min-h-screen bg-slate-100 dark:bg-[#030313] text-slate-900 dark:text-white"
       >
         <TopNav />
 
@@ -55,7 +55,7 @@ export default function UserProfilePageClient({
             </aside>
 
             <section className="md:col-span-9 lg:col-span-9">
-              <ProfileContent
+              <UserProfileContent
                 user={user}
                 posts={[]}
                 likedIds={[]}

@@ -44,15 +44,15 @@ export const userServices = {
         return data;
     },
     async followUser(payload: { username: string }) {
-        const { data } = await apiClient.post(endpoints.users.followUser, { params: payload });
+        const { data } = await apiClient.post(endpoints.users.followUser.replace("{username}", payload.username));
         return data;
     },
     async unfollowUser(payload: { username: string }) {
-        const { data } = await apiClient.delete(endpoints.users.unfollowUser, { params: payload });
+        const { data } = await apiClient.delete(endpoints.users.unfollowUser.replace("{username}", payload.username), { params: payload });
         return data;
     },
     async getFollowers(payload: { username: string }) {
-        const { data } = await apiClient.get(endpoints.users.getFollowers, { params: payload });
+        const { data } = await apiClient.get(endpoints.users.getFollowers.replace("{username}", payload.username), { params: payload });
         return data;
     },
     async getFollowing(payload: { username: string }) {

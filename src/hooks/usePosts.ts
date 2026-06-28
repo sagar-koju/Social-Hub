@@ -1,5 +1,6 @@
 import { postServices } from '@/services/postServices'
 import { useInfiniteQuery } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useGetPostByUsername = (username: string) => {
     return useInfiniteQuery({
@@ -17,5 +18,59 @@ export const useGetPostByUsername = (username: string) => {
         staleTime: 0,
         refetchOnMount: true,
         retry: false,
+    });
+}
+
+export const useLikePost = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (postId: string) =>
+            postServices.likePost({ postId }),
+        onMutate: async (postId) => {
+            await queryClient.cancelQueries({ queryKey:["posts"]})
+            await queryClient.cancelQueries({ queryKey: ["post", postId] });
+            const previousPost = queryClient.getQueryData(["post", postId]);
+            queryClient.setQueryData(["post", postId], (old: any) => {
+                if (!old) return old;
+                return {
+                    ...old,
+                    isLiked: true,
+                    likeCount: old.likeCount + 1,
+                };
+            });
+            return { previousPost };
+        },
+        onError: (_err, postId, context) => {
+            queryClient.setQueryData(["post", postId], context?.previousPost);
+        },
+        onSettled: (_, _err, postId) => {
+            queryClient.invalidateQueries({ queryKey: ["post", postId] });
+        },
+    });
+}
+export const useUnlikePost = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (postId: string) =>
+            postServices.unlikePost({ postId }),
+        onMutate: async (postId) => {
+            await queryClient.cancelQueries({ queryKey: ["post", postId] });
+            const previousPost = queryClient.getQueryData(["post", postId]);
+            queryClient.setQueryData(["post", postId], (old: any) => {
+                if (!old) return old;
+                return {
+                    ...old,
+                    isLiked: false,
+                    likeCount: old.likeCount - 1,
+                };
+            });
+            return { previousPost };
+        },
+        onError: (_err, postId, context) => {
+            queryClient.setQueryData(["post", postId], context?.previousPost);
+        },
+        onSettled: (_, _err, postId) => {
+            queryClient.invalidateQueries({ queryKey: ["post", postId] });
+        },
     });
 }

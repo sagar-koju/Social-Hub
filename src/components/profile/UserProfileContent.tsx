@@ -5,9 +5,10 @@ import Avatar from "@/components/ui/avatar";
 import type { Post } from "@/types/post";
 import { UserProfile } from "@/types/userProfile"
 import { useGetPostByUsername } from "@/hooks/usePosts";
+import { FollowButton } from "@/components/features/FollowButton";
+import { Heart, Repeat } from "lucide-react";
 
-
-export default function ProfileContent({
+export default function UserProfileContent({
   user,
   posts,
   likedIds = [],
@@ -40,10 +41,8 @@ export default function ProfileContent({
     return source.filter((p) => p.content.toLowerCase().includes(q));
   }, [source, query]);
 
-
-
   return (
-    <div className="w-full border border-white/10 bg-black/50 p-2 md:px-4 md:py-10 shadow-2xl shadow-black/30 backdrop-blur-xl transition duration-300 rounded-3xl">
+    <div className="w-full border border-slate-300 dark:border-white/10 bg-white dark:bg-black/50 p-2 md:px-4 md:py-10 shadow-2xl shadow-black/30 backdrop-blur-xl transition duration-300 rounded-3xl">
       <div className="space-y-4 mx-auto max-w-[765px]">
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <div className="flex flex-col items-center gap-6 w-full">
@@ -54,14 +53,14 @@ export default function ProfileContent({
                 <img
                   src={user.avatarUrl}
                   alt={user.displayName}
-                  className="w-24 h-24 rounded-full object-cover border-2 border-white/10"
+                  className="w-24 h-24 rounded-full object-cover border-2 border-slate-300 dark:border-white/10"
                 />
               ) : (
                 <Avatar name={user.displayName} size={96} online />
               )}
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
-                  <h2 className="text-xl font-semibold">{user.displayName}</h2>
+                  <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">{user.displayName}</h2>
                   {user.isVerified && (
                     <svg className="w-5 h-5 text-indigo-400" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -76,34 +75,32 @@ export default function ProfileContent({
             </div>
 
             {/* Bio */}
-            <p className="mt-2 text-sm text-zinc-300 max-w-xl w-full">
+            <p className="mt-2 text-sm text-zinc-900 dark:text-zinc-300 max-w-xl w-full">
               {user.bio ?? <span className="text-zinc-500 italic">No bio yet.</span>}
             </p>
 
             {/* Action Buttons */}
             <div className="flex w-full justify-between items-center gap-4 p-5">
-              <button className="ml-2 rounded-md px-5 md:px-16 py-2 border border-white/10 bg-white/4 text-sm font-medium">
-                Edit profile
+              <button className="ml-2 rounded-md px-5 md:px-16 py-2 border border-slate-300 dark:border-white/10 bg-slate-300 dark:bg-white/4 text-sm text-slate-900 dark:text-slate-100 font-medium">
+                Message
               </button>
-              <button className="rounded-md px-5 md:px-16 py-2 border border-white/10 bg-indigo-600 text-white text-sm font-medium">
-                Follow
-              </button>
+              <FollowButton username={user.username} isFollowing={user.isFollowing} />
             </div>
 
             {/* Stats */}
             <div className="w-full">
               <div className="flex justify-between items-center gap-6 mt-4 px-5">
                 <div className="flex flex-col sm:flex-row gap-2 text-center">
-                  <div className="text-xl font-semibold">{myPosts.length}</div>
-                  <div className="text-zinc-400 mt-1">Posts</div>
+                  <div className="text-xl font-semibold text-slate-900 dark:text-slate-100">{myPosts.length}</div>
+                  <div className="text-slate-600 dark:text-zinc-400 mt-1">Posts</div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2 text-center">
-                  <div className="text-xl font-semibold">{user.followerCount}</div>
-                  <div className="text-zinc-400 mt-1">Followers</div>
+                  <div className="text-xl font-semibold text-slate-900 dark:text-slate-100">{user.followerCount}</div>
+                  <div className="text-slate-600 dark:text-zinc-400 mt-1">Followers</div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2 text-center">
-                  <div className="text-xl font-semibold">{user.followingCount}</div>
-                  <div className="text-zinc-400 mt-1">Following</div>
+                  <div className="text-xl font-semibold text-slate-900 dark:text-slate-100">{user.followingCount}</div>
+                  <div className="text-slate-600 dark:text-zinc-400 mt-1">Following</div>
                 </div>
               </div>
             </div>
@@ -112,31 +109,25 @@ export default function ProfileContent({
         </div>
 
         {/* Tabs */}
-        <div className="border-t border-white/6 pt-4">
-          <div className="flex flex-col sm:flex-row items-center justify-between">
-            <div className="flex items-center justify-between gap-6">
-              <button onClick={() => setTab("my")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "my" ? "text-white" : "text-zinc-400"}`}>
-                <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M3 3h18v18H3z" /></svg>
-                Posts
-              </button>
-              <button onClick={() => setTab("liked")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "liked" ? "text-white" : "text-zinc-400"}`}>
-                <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M12 21s-6-4.35-9-7.33C.89 11.62 2 6 7.5 6c2.24 0 3.99 1.34 4.5 2.09C12.51 7.34 14.26 6 16.5 6 22 6 23.11 11.62 21 13.67 18 16.65 12 21 12 21z" /></svg>
-                Liked
-              </button>
-              <button onClick={() => setTab("saved")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "saved" ? "text-white" : "text-zinc-400"}`}>
-                <svg width="16" height="16" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M6 2h12v20l-6-3-6 3V2z" /></svg>
-                Saved
-              </button>
-            </div>
-
-            <div className="flex-1 ml-4">
-              <input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Filter posts"
-                className="w-full rounded-md bg-white/3 border border-white/6 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
-              />
-            </div>
+        <div className="border-t border-slate-300 dark:border-white/6 px-5 mt-4">
+          <div className="flex items-center justify-between gap-6">
+            <button onClick={() => setTab("my")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "my" ? "text-white" : "text-zinc-400"}`}>
+              <svg width="20" height="20" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M3 3h18v18H3z" /></svg>
+              {/* Posts */}
+            </button>
+            <button onClick={() => setTab("liked")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "liked" ? "text-white" : "text-zinc-400"}`}>
+              <Heart size={20} />
+              {/* <svg width="20" height="20" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M12 21s-6-4.35-9-7.33C.89 11.62 2 6 7.5 6c2.24 0 3.99 1.34 4.5 2.09C12.51 7.34 14.26 6 16.5 6 22 6 23.11 11.62 21 13.67 18 16.65 12 21 12 21z" /></svg> */}
+              {/* Liked */}
+            </button>
+            <button onClick={() => setTab("saved")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "saved" ? "text-white" : "text-zinc-400"}`}>
+              {/* repost */}
+              <Repeat size={20} />
+            </button>
+            <button onClick={() => setTab("saved")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "saved" ? "text-white" : "text-zinc-400"}`}>
+              <svg width="20" height="20" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M6 2h12v20l-6-3-6 3V2z" /></svg>
+              {/* Tagged */}
+            </button>
           </div>
 
           {/* Posts Grid */}
