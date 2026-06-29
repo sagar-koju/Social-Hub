@@ -37,28 +37,28 @@ export const postServices = {
         return data;
     },
 
-    // querypath parameter example
+    // query & path parameter example
     async getPostByUsername(payload: { username: string; limit?: number; cursor?: string }) {
         const { username, limit, cursor } = payload;
         const { data } = await apiClient.get(endpoints.posts.getPostByUsername.replace("{username}", username), { params: { limit, ...(cursor && { cursor }) } });
         return data;
     },
 
-    async createComment(payload: { postId: string; content: string }) {
-        const { data } = await apiClient.post(endpoints.posts.createComment, payload);
+    async createComment({postId, content, parentCommentId}: { postId: string, content: string, parentCommentId?: string }) {
+        const { data } = await apiClient.post(endpoints.posts.createComment.replace("{postId}", postId), { content, parentCommentId });
         return data;
     },
     async getComments({ postId, limit, cursor }: { postId: string; limit?: number; cursor?: string }) {
-        const { data } = await apiClient.get(endpoints.posts.getComments, { params: { postId, limit, cursor } });
+        const { data } = await apiClient.get(endpoints.posts.getComments.replace("{postId}", postId), {params: {limit, ...(cursor && {cursor})}});
         return data;
     },
-    async likeComment({ commentId, limit, cursor }: { commentId: string; limit?: number; cursor?: string }) {
-        const { data } = await apiClient.post(endpoints.posts.likeComment, { params: { commentId, limit, cursor } });
+    async likeComment({ commentId}: { commentId: string}) {
+        const { data } = await apiClient.post(endpoints.posts.likeComment.replace("{commentId}",commentId));
         return data;
     },
 
-    async unlikeComment({ commentId, limit, cursor }: { commentId: string; limit?: number; cursor?: string }) {
-        const { data } = await apiClient.delete(endpoints.posts.likeComment, { params: { commentId, limit, cursor } });
+    async unlikeComment({ commentId}: { commentId: string}) {
+        const { data } = await apiClient.delete(endpoints.posts.likeComment.replace("{commentId}",commentId));
         return data;
     },
 
@@ -67,7 +67,7 @@ export const postServices = {
         return data;
     },
     async getReplyComments({ commentId, limit, cursor }: { commentId: string; limit?: number; cursor?: string }) {
-        const { data } = await apiClient.get(endpoints.posts.getReplyComments, { params: { commentId, limit, cursor } });
+        const { data } = await apiClient.get(endpoints.posts.getReplyComments.replace("{commentId}", commentId), { params: { limit, ...(cursor && { cursor }) } });
         return data;
     },
     async bookmarkPost(payload: { postId: string }) {
