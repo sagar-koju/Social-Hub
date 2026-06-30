@@ -71,3 +71,21 @@ export const useUnfollowUser = () => {
         },
     });
 };
+
+export const useGetFollowers = (username: string, options?: { enabled?: boolean }) => {
+    return useQuery({
+        queryKey: ["followers", username],
+        queryFn: () => userServices.getFollowers({ username }),
+        retry: false,
+        enabled: options?.enabled ?? true,
+    });
+}
+
+export const useGetFollowing = (username: string, options?: { enabled?: boolean }) => {
+    return useQuery({
+        queryKey: ["following", username],
+        queryFn: () => userServices.getFollowing({ username }),
+        retry: false,
+        enabled: options?.enabled ?? true,
+    });
+}

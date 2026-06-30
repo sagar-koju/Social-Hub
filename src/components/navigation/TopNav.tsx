@@ -71,13 +71,11 @@ export default function TopNav() {
   }, []);
 
   useEffect(() => {
-    console.log("send request");
     const timer = setTimeout(() => {
       if (query) {
         setDebouncedQuery(query);
       }
     }, 1500);
-    console.log("request sent");
     return () => clearTimeout(timer);
   }, [query])
 

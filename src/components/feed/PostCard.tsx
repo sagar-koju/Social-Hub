@@ -10,9 +10,10 @@ import { timeAgo } from "@/lib/utils"
 import { useLikePost, useUnlikePost } from "@/hooks/usePosts";
 import Link from "next/link";
 import CommentModal from "@/components/comment-post/CommentModal";
+import {useBookmarkPost, useUnbookmarkPost} from "@/hooks/useBookmarks";
 
 export default function PostCard({ post }: { post: Post }) {
-  const [saved, setSaved] = useState(post.isBookmarked);
+  const [bookmarked, setBookmarked] = useState(post.isBookmarked);
   const [expanded, setExpanded] = useState(false);
   const [liked, setLiked] = useState(post.isLiked);
   const [likes, setLikes] = useState(post.likeCount);
@@ -21,7 +22,7 @@ export default function PostCard({ post }: { post: Post }) {
   const shouldTruncate = post.content.length > 250;
   const visibleContent = shouldTruncate && !expanded ? `${post.content.slice(0, 250)}…` : post.content;
 
-  const { mutate: likepost } = useLikePost();
+  const { mutate: likepost,  } = useLikePost();
   const { mutate: unlikepost } = useUnlikePost();
 
   const handleLike = (postId: string) => {
@@ -45,6 +46,21 @@ export default function PostCard({ post }: { post: Post }) {
       setLikes(l => l + 1);
     }
   }
+
+  const { mutate: bookmarkPost } = useBookmarkPost();
+  const { mutate: unbookmarkPost } = useUnbookmarkPost();
+
+  const handleBookmark = () => {
+    if (bookmarked) {
+      unbookmarkPost(post.id, {
+      });
+    } else {
+      bookmarkPost(post.id, {
+      });
+    }
+    setBookmarked((value) => !value);
+  };
+
   return (
     <motion.article
       className="mb-4 rounded-3xl border border-slate-300 dark:border-white/10 bg-white dark:bg-black/50 p-4 shadow-md dark:shadow-black/20 backdrop-blur-xl"
@@ -67,11 +83,11 @@ export default function PostCard({ post }: { post: Post }) {
 
             <button
               type="button"
-              onClick={() => setSaved((value) => !value)}
-              className={`inline-flex h-10 w-10 items-center justify-center transition ${saved ? "text-red-400" : " text-slate-700 dark:text-zinc-300"}`}
+              onClick={handleBookmark}
+              className={`inline-flex h-10 w-10 items-center justify-center transition ${bookmarked ? "text-red-400" : " text-slate-700 dark:text-zinc-300"}`}
               aria-label="Save post"
             >
-              <Bookmark size={20} fill={saved ? "currentColor" : "none"} />
+              <Bookmark size={20} fill={bookmarked ? "currentColor" : "none"} />
             </button>
           </div>
 

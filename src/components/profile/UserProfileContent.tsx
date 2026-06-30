@@ -6,7 +6,10 @@ import type { Post } from "@/types/post";
 import { UserProfile } from "@/types/userProfile"
 import { useGetPostByUsername } from "@/hooks/usePosts";
 import { FollowButton } from "@/components/features/FollowButton";
-import { Heart, Repeat } from "lucide-react";
+import { Heart, Repeat, X } from "lucide-react";
+import { useGetFollowers, useGetFollowing } from "@/components/profile/hooks/useProfile";
+import Link from "next/link";
+import { useGetCurrentUser } from "@/hooks/useAuth";
 
 export default function UserProfileContent({
   user,
@@ -21,15 +24,18 @@ export default function UserProfileContent({
 }) {
   const [tab, setTab] = useState<"my" | "liked" | "saved">("my");
   const [query, setQuery] = useState("");
+  const [showFollowers, setShowFollowers] = useState(false);
+  const [showFollowing, setShowFollowing] = useState(false);
+
+  const { data: followers = [], isLoading: isFollowersLoading, error: followersError } = useGetFollowers(user.username, { enabled: showFollowers });
+  const { data: following = [], isLoading: isFollowingLoading, error: followingError } = useGetFollowing(user.username, { enabled: showFollowing });
+  console.log(followers, "followers in profile content");
 
   // use the username from the already-available user prop instead of useParams()
   const { data, isLoading, error, fetchNextPage, hasNextPage } = useGetPostByUsername(user.username);
   const myPosts = data?.pages.flatMap(page => page.posts) ?? [];
 
-  if (!isLoading && error) {
 
-    console.log(myPosts, "myPosts in profile content");
-  }
   const likedPosts = useMemo(() => posts.filter((p) => likedIds.includes(p.id)), [posts, likedIds]);
   const savedPosts = useMemo(() => posts.filter((p) => savedIds.includes(p.id)), [posts, savedIds]);
 
@@ -41,6 +47,15 @@ export default function UserProfileContent({
     return source.filter((p) => p.content.toLowerCase().includes(q));
   }, [source, query]);
 
+  const { data: currentUser, isLoading: isCurrentUserLoading } = useGetCurrentUser();
+
+  if (!isLoading && !error) {
+
+    console.log(myPosts, "myPosts in profile content");
+    console.log(currentUser, "currentUser in profile content");
+    console.log(currentUser?.username, "currentUser in profile content");
+  }
+
   return (
     <div className="w-full border border-slate-300 dark:border-white/10 bg-white dark:bg-black/50 p-2 md:px-4 md:py-10 shadow-2xl shadow-black/30 backdrop-blur-xl transition duration-300 rounded-3xl">
       <div className="space-y-4 mx-auto max-w-[765px]">
@@ -48,7 +63,7 @@ export default function UserProfileContent({
           <div className="flex flex-col items-center gap-6 w-full">
 
             {/* Avatar + Name + Username */}
-            <div className="flex flex-col gap-4 md:flex-row items-center justify-start w-full">
+            <div className="flex flex-col gap-4 md:flex-row items-center justify-start w-full p-4">
               {user.avatarUrl ? (
                 <img
                   src={user.avatarUrl}
@@ -72,16 +87,17 @@ export default function UserProfileContent({
                   Joined in {new Date(user.createdAt).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
                 </div>
               </div>
+              {/* Bio */}
+              <p className="mt-2 text-sm text-zinc-900 dark:text-zinc-300 max-w-xl w-full text-center">
+                {user.bio ?? <span className="text-zinc-500 italic">No bio yet.</span>}
+              </p>
             </div>
 
-            {/* Bio */}
-            <p className="mt-2 text-sm text-zinc-900 dark:text-zinc-300 max-w-xl w-full">
-              {user.bio ?? <span className="text-zinc-500 italic">No bio yet.</span>}
-            </p>
+
 
             {/* Action Buttons */}
             <div className="flex w-full justify-between items-center gap-4 p-5">
-              <button className="ml-2 rounded-md px-5 md:px-16 py-2 border border-slate-300 dark:border-white/10 bg-slate-300 dark:bg-white/4 text-sm text-slate-900 dark:text-slate-100 font-medium">
+              <button className="ml-2 rounded-md px-5 md:px-16 py-2 border border-slate-300 dark:border-white/10 bg-slate-100 dark:bg-white/4 text-sm text-slate-900 dark:text-slate-100 hover:bg-slate-200 hover:dark:bg-slate-900 font-medium">
                 Message
               </button>
               <FollowButton username={user.username} isFollowing={user.isFollowing} />
@@ -89,16 +105,17 @@ export default function UserProfileContent({
 
             {/* Stats */}
             <div className="w-full">
-              <div className="flex justify-between items-center gap-6 mt-4 px-5">
+              <div className="flex justify-between items-center gap-6 px-5">
                 <div className="flex flex-col sm:flex-row gap-2 text-center">
                   <div className="text-xl font-semibold text-slate-900 dark:text-slate-100">{myPosts.length}</div>
                   <div className="text-slate-600 dark:text-zinc-400 mt-1">Posts</div>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-2 text-center">
+                <div onClick={() => { setShowFollowers(!showFollowers) }} className="flex flex-col sm:flex-row gap-2 text-center hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-white/5 rounded-md p-3">
                   <div className="text-xl font-semibold text-slate-900 dark:text-slate-100">{user.followerCount}</div>
                   <div className="text-slate-600 dark:text-zinc-400 mt-1">Followers</div>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-2 text-center">
+
+                <div onClick={() => { setShowFollowing(!showFollowing) }} className="flex flex-col sm:flex-row gap-2 text-center hover:cursor-pointer hover:bg-slate-100 dark:hover:bg-white/5 rounded-md p-3">
                   <div className="text-xl font-semibold text-slate-900 dark:text-slate-100">{user.followingCount}</div>
                   <div className="text-slate-600 dark:text-zinc-400 mt-1">Following</div>
                 </div>
@@ -107,6 +124,91 @@ export default function UserProfileContent({
 
           </div>
         </div>
+
+        {/* Followers Modal */}
+        {showFollowers && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/50" onClick={() => setShowFollowers(false)}></div>
+            <div className="relative z-50 bg-white dark:bg-zinc-900 rounded-xl p-6 max-w-md w-full mx-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold">Followers</h3>
+                <button onClick={() => setShowFollowers(false)} className="text-slate-500 dark:text-zinc-400 hover:text-slate-700 dark:hover:text-zinc-200 transition">
+                  <X size={20} />
+                </button>
+              </div>
+              <div className="flex flex-col gap-3 mt-4 max-h-80 overflow-y-auto">
+                {isFollowersLoading ? (
+                  <div className="text-sm text-zinc-600 dark:text-slate-300 text-center"> Loading...</div>
+                ) : followersError ? (
+                  <div className="text-sm text-zinc-600 dark:text-slate-300" > Error loading followers </div>
+                ) : (followers.length === 0 ? (
+                  <div className="text-sm text-zinc-400">No followers yet.</div>
+                ) : (followers.map((follower: any) => (
+                  
+                  <div key={follower.id} className="flex items-center gap-3">
+                    <Avatar name={follower.displayName} size={40} online={false} />
+                    <div className="flex justify-between items-center w-full">
+                    <div className="flex flex-col">
+                      <Link href={`/profile/${follower.username}`} >
+                        <div className="font-semibold">{follower.displayName}</div>
+                        <div className="text-xs text-slate-500 dark:text-zinc-400">@{follower.username}</div></Link>
+                    </div>
+                    {follower.username !== currentUser?.username && (
+                      <FollowButton username={follower.username} isFollowing={follower.isFollowing} />
+                    )}
+                  </div>
+                  </div>
+                ))
+                ))}
+              </div>
+            </div>
+          </div>
+        )
+        }
+
+        {/* Following Modal */}
+        {
+          showFollowing && (
+            <div className="fixed inset-0 z-80 flex items-center justify-center">
+              <div className="absolute inset-0 bg-black/50" onClick={() => setShowFollowing(false)}></div>
+              <div className="relative z-50 bg-white dark:bg-zinc-900 rounded-xl p-6 max-w-md w-full mx-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-semibold">Following</h3>
+                  <button onClick={() => setShowFollowing(false)} className="text-slate-500 dark:text-zinc-400 hover:text-slate-700 dark:hover:text-zinc-200 transition">
+                    <X size={20} />
+                  </button>
+                </div>
+                <div className="flex flex-col gap-3 mt-4 max-h-80 overflow-y-auto">
+                  {isFollowingLoading ? (
+                    <div className="text-sm text-zinc-600 dark:text-slate-300 text-center"> Loading...</div>
+                  ) : followingError ? (
+                    <div className="text-sm text-zinc-600 dark:text-slate-300" > Error loading following </div>
+                  ) : (
+                    following.length === 0 ? (
+                      <div className="text-sm text-zinc-400">Not following anyone yet.</div>
+                    ) : (
+                      following.map((followedUser: any) => (
+                        <div key={followedUser.id} className="flex items-center gap-3">
+                          <Avatar name={followedUser.displayName} size={40} online={false} />
+                          <div className="flex justify-between items-center w-full">
+                            <div className="flex flex-col">
+                              <Link href={`/profile/${followedUser.username}`} >
+                                <div className="font-semibold">{followedUser.displayName}</div>
+                                <div className="text-xs text-slate-500 dark:text-zinc-400">@{followedUser.username}</div>
+                              </Link>
+                            </div>
+                            {followedUser.username !== currentUser?.username && (
+                              <FollowButton username={followedUser.username} isFollowing={followedUser.isFollowing} />
+                            )}
+                          </div>
+                        </div>
+                      ))
+                    ))}
+                </div>
+              </div>
+            </div>
+          )
+        }
 
         {/* Tabs */}
         <div className="border-t border-slate-300 dark:border-white/6 px-5 mt-4">
@@ -152,6 +254,6 @@ export default function UserProfileContent({
           </div>}
         </div>
       </div>
-    </div>
+    </div >
   );
 }

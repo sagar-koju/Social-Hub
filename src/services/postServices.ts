@@ -62,20 +62,20 @@ export const postServices = {
         return data;
     },
 
-    async deleteComment(payload: { commentId: string }) {
-        const { data } = await apiClient.delete(endpoints.posts.deleteComment, { params: payload });
+    async deleteComment({commentId}: { commentId: string }) {
+        const { data } = await apiClient.delete(endpoints.posts.deleteComment.replace("{commentId}", commentId));
         return data;
     },
     async getReplyComments({ commentId, limit, cursor }: { commentId: string; limit?: number; cursor?: string }) {
         const { data } = await apiClient.get(endpoints.posts.getReplyComments.replace("{commentId}", commentId), { params: { limit, ...(cursor && { cursor }) } });
         return data;
     },
-    async bookmarkPost(payload: { postId: string }) {
-        const { data } = await apiClient.post(endpoints.posts.bookmarkPost, payload);
+    async bookmarkPost({postId}: { postId: string }) {
+        const { data } = await apiClient.post(endpoints.posts.bookmarkPost.replace("{postId}", postId));
         return data;
     },
-    async removeBookmark(payload: { postId: string }) {
-        const { data } = await apiClient.delete(endpoints.posts.bookmarkPost, { params: payload });
+    async removeBookmark({ postId }: { postId: string }) {
+        const { data } = await apiClient.delete(endpoints.posts.bookmarkPost.replace("{postId}", postId));
         return data;
     },
 
