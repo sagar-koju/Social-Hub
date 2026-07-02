@@ -12,7 +12,7 @@ export default function Avatar({ name, size = 40, online = false }: Props) {
     <div className="relative inline-block">
       <div
         style={{ width: size, height: size }}
-        className="rounded-full bg-zinc-400 dark:bg-zinc-700 flex items-center justify-center text-white font-semibold"
+        className="rounded-full bg-linear-to-br from-indigo-500 via-blue-500 to-fuchsia-500 text-2xl font-bold text-white flex items-center justify-center overflow-hidden"
       >
         {(name || "U").slice(0, 2)}
       </div>
