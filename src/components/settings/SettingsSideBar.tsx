@@ -48,7 +48,7 @@ const SettingsSidebar = ({ activeSection, onSectionChange, search, onSearchChang
         {visibleItems.map((item) => {
           const Icon = NAV[item.id].icon;
           const isActive = activeSection === item.id;
-
+       
           return (
             <li key={item.id}>
               <button

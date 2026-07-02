@@ -81,13 +81,12 @@ export default function MyProfileContent({
                 Joined in {new Date(user.createdAt).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
               </div>
             </div>
+
             {/* Bio */}
-            <p className="mt-2  max-w-xl w-full text-center">
-              {user.bio ?? <span className=" text-sm text-zinc-500 dark:text-zinc-300 italic ">No bio yet.</span>}
+            <p className="mt-2 text-xs text-zinc-600 max-w-xl w-full text-center dark:text-zinc-300 italic">
+              {user.bio ?? <span>No bio yet.</span>}
             </p>
           </div>
-
-
 
           {/* Action Buttons */}
           <div className="flex w-full justify-between items-center gap-4 px-5">
@@ -120,112 +119,112 @@ export default function MyProfileContent({
       </div>
 
       {/* Followers Modal */}
-       {showFollowers && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="absolute inset-0 bg-black/50" onClick={() => setShowFollowers(false)}></div>
-            <div className="relative z-50 bg-white dark:bg-zinc-900 rounded-xl p-6 max-w-md w-full mx-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-semibold">Followers</h3>
-                <button onClick={() => setShowFollowers(false)} className="text-slate-500 dark:text-zinc-400 hover:text-slate-700 dark:hover:text-zinc-200 transition">
-                  <X size={20} />
-                </button>
-              </div>
-              <div className="flex flex-col gap-3 mt-4 max-h-80 overflow-y-auto">
-                {isFollowersLoading ? (
-                  <div className="text-sm text-zinc-600 dark:text-slate-300 text-center"> Loading...</div>
-                ) : followersError ? (
-                  <div className="text-sm text-zinc-600 dark:text-slate-300" > Error loading followers </div>
-                ) : (followers.length === 0 ? (
-                  <div className="text-sm text-zinc-400">No followers yet.</div>
-                ) : (followers.map((follower: any) => (
-                  <div key={follower.id} className="flex items-center gap-3">
-                    <Avatar name={follower.displayName} size={40} online={false} />
-                    <div className="flex justify-between items-center w-full">
+      {showFollowers && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setShowFollowers(false)}></div>
+          <div className="relative z-50 bg-white dark:bg-zinc-900 rounded-xl p-6 max-w-md w-full mx-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-semibold">Followers</h3>
+              <button onClick={() => setShowFollowers(false)} className="text-slate-500 dark:text-zinc-400 hover:text-slate-700 dark:hover:text-zinc-200 transition">
+                <X size={20} />
+              </button>
+            </div>
+            <div className="flex flex-col gap-3 mt-4 max-h-80 overflow-y-auto">
+              {isFollowersLoading ? (
+                <div className="text-sm text-zinc-600 dark:text-slate-300 text-center"> Loading...</div>
+              ) : followersError ? (
+                <div className="text-sm text-zinc-600 dark:text-slate-300" > Error loading followers </div>
+              ) : (followers.length === 0 ? (
+                <div className="text-sm text-zinc-400">No followers yet.</div>
+              ) : (followers.map((follower: any) => (
+                <div key={follower.id} className="flex items-center gap-3">
+                  <Avatar name={follower.displayName} size={40} online={false} />
+                  <div className="flex justify-between items-center w-full">
                     <div className="flex flex-col">
                       <Link href={`/profile/${follower.username}`} >
                         <div className="font-semibold">{follower.displayName}</div>
                         <div className="text-xs text-slate-500 dark:text-zinc-400">@{follower.username}</div></Link>
                     </div>
-                        <FollowButton username={follower.username} isFollowing={follower.isFollowing} />
+                    <FollowButton username={follower.username} isFollowing={follower.isFollowing} />
                   </div>
-                  </div>
-                ))
-                ))}
+                </div>
+              ))
+              ))}
+            </div>
+          </div>
+        </div>
+      )
+      }
+
+      {/* Following Modal */}
+      {
+        showFollowing && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/50" onClick={() => setShowFollowing(false)}></div>
+            <div className="relative z-50 bg-white dark:bg-zinc-900 rounded-xl p-6 max-w-md w-full mx-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold">Following</h3>
+                <button onClick={() => setShowFollowing(false)} className="text-slate-500 dark:text-zinc-400 hover:text-slate-700 dark:hover:text-zinc-200 transition">
+                  <X size={20} />
+                </button>
+              </div>
+              <div className="flex flex-col gap-3 mt-4 max-h-80 overflow-y-auto">
+                {isFollowingLoading ? (
+                  <div className="text-sm text-zinc-600 dark:text-slate-300 text-center"> Loading...</div>
+                ) : followingError ? (
+                  <div className="text-sm text-zinc-600 dark:text-slate-300" > Error loading following </div>
+                ) : (
+                  following.length === 0 ? (
+                    <div className="text-sm text-zinc-400">Not following anyone yet.</div>
+                  ) : (
+                    following.map((followedUser: any) => (
+                      <div key={followedUser.id} className="flex items-center gap-3">
+                        <Avatar name={followedUser.displayName} size={40} online={false} />
+                        <div className="flex justify-between items-center w-full">
+                          <div className="flex flex-col">
+                            <Link href={`/profile/${followedUser.username}`} >
+                              <div className="font-semibold">{followedUser.displayName}</div>
+                              <div className="text-xs text-slate-500 dark:text-zinc-400">@{followedUser.username}</div>
+                            </Link>
+                          </div>
+                          {followedUser.username !== user?.username && (
+                            <FollowButton username={followedUser.username} isFollowing={followedUser.isFollowing} />
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  ))}
               </div>
             </div>
           </div>
         )
-        }
+      }
 
-        {/* Following Modal */}
-        {
-          showFollowing && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center">
-              <div className="absolute inset-0 bg-black/50" onClick={() => setShowFollowing(false)}></div>
-              <div className="relative z-50 bg-white dark:bg-zinc-900 rounded-xl p-6 max-w-md w-full mx-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold">Following</h3>
-                  <button onClick={() => setShowFollowing(false)} className="text-slate-500 dark:text-zinc-400 hover:text-slate-700 dark:hover:text-zinc-200 transition">
-                    <X size={20} />
-                  </button>
-                </div>
-                <div className="flex flex-col gap-3 mt-4 max-h-80 overflow-y-auto">
-                  {isFollowingLoading ? (
-                    <div className="text-sm text-zinc-600 dark:text-slate-300 text-center"> Loading...</div>
-                  ) : followingError ? (
-                    <div className="text-sm text-zinc-600 dark:text-slate-300" > Error loading following </div>
-                  ) : (
-                    following.length === 0 ? (
-                      <div className="text-sm text-zinc-400">Not following anyone yet.</div>
-                    ) : (
-                      following.map((followedUser: any) => (
-                        <div key={followedUser.id} className="flex items-center gap-3">
-                          <Avatar name={followedUser.displayName} size={40} online={false} />
-                          <div className="flex justify-between items-center w-full">
-                            <div className="flex flex-col">
-                              <Link href={`/profile/${followedUser.username}`} >
-                                <div className="font-semibold">{followedUser.displayName}</div>
-                                <div className="text-xs text-slate-500 dark:text-zinc-400">@{followedUser.username}</div>
-                              </Link>
-                            </div>
-                            {followedUser.username !== user?.username && (
-                              <FollowButton username={followedUser.username} isFollowing={followedUser.isFollowing} />
-                            )}
-                          </div>
-                        </div>
-                      ))
-                    ))}
-                </div>
-              </div>
-            </div>
-          )
-        }
-
-{/* Tabs */ }
-<div className="border-t border-slate-300 dark:border-white/6 px-5 mt-4">
-  <div className="flex items-center justify-between gap-6">
-    <button onClick={() => setTab("my")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "my" ? "text-white" : "text-zinc-400"}`}>
-      <svg width="20" height="20" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M3 3h18v18H3z" /></svg>
-      {/* Posts */}
-    </button>
-    <button onClick={() => setTab("liked")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "liked" ? "text-white" : "text-zinc-400"}`}>
-      <Heart size={20} />
-      {/* <svg width="20" height="20" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M12 21s-6-4.35-9-7.33C.89 11.62 2 6 7.5 6c2.24 0 3.99 1.34 4.5 2.09C12.51 7.34 14.26 6 16.5 6 22 6 23.11 11.62 21 13.67 18 16.65 12 21 12 21z" /></svg> */}
-      {/* Liked */}
-    </button>
-    <button onClick={() => setTab("saved")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "saved" ? "text-white" : "text-zinc-400"}`}>
-      {/* repost */}
-      <Repeat size={20} />
-    </button>
-    <button onClick={() => setTab("saved")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "saved" ? "text-white" : "text-zinc-400"}`}>
-      <svg width="20" height="20" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M6 2h12v20l-6-3-6 3V2z" /></svg>
-      {/* Tagged */}
-    </button>
-  </div>
+      {/* Tabs */}
+      <div className="border-t border-slate-300 dark:border-white/6 px-5 mt-4">
+        <div className="flex items-center justify-between gap-6">
+          <button onClick={() => setTab("my")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "my" ? "text-white" : "text-zinc-400"}`}>
+            <svg width="20" height="20" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M3 3h18v18H3z" /></svg>
+            {/* Posts */}
+          </button>
+          <button onClick={() => setTab("liked")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "liked" ? "text-white" : "text-zinc-400"}`}>
+            <Heart size={20} />
+            {/* <svg width="20" height="20" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M12 21s-6-4.35-9-7.33C.89 11.62 2 6 7.5 6c2.24 0 3.99 1.34 4.5 2.09C12.51 7.34 14.26 6 16.5 6 22 6 23.11 11.62 21 13.67 18 16.65 12 21 12 21z" /></svg> */}
+            {/* Liked */}
+          </button>
+          <button onClick={() => setTab("saved")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "saved" ? "text-white" : "text-zinc-400"}`}>
+            {/* repost */}
+            <Repeat size={20} />
+          </button>
+          <button onClick={() => setTab("saved")} className={`flex items-center gap-2 px-3 py-2 text-sm ${tab === "saved" ? "text-white" : "text-zinc-400"}`}>
+            <svg width="20" height="20" viewBox="0 0 24 24" className="opacity-90"><path fill="currentColor" d="M6 2h12v20l-6-3-6 3V2z" /></svg>
+            {/* Tagged */}
+          </button>
+        </div>
 
 
-  {/* Posts Grid */}
-  {/* {!isLoading && <div className="mt-6">
+        {/* Posts Grid */}
+        {/* {!isLoading && <div className="mt-6">
           {source.length === 0 ? (
             <div className="text-sm text-zinc-400">No posts to show.</div>
           ) : (
@@ -244,7 +243,7 @@ export default function MyProfileContent({
             </div>
           )}
         </div>} */}
-</div>
+      </div>
     </div >
   );
 }

@@ -1,5 +1,4 @@
 "use client";
-
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import SettingContents from "@/components/settings/SettingContents";

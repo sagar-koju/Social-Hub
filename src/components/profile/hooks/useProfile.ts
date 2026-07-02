@@ -89,3 +89,29 @@ export const useGetFollowing = (username: string, options?: { enabled?: boolean 
         enabled: options?.enabled ?? true,
     });
 }
+
+export const useUpdateMyProfile = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (data: { displayName: string; bio: string; isPrivate: boolean }) => userServices.updateMyProfile(data),
+        
+        onMutate: async (data) => {
+            await queryClient.cancelQueries({ queryKey: ["auth"] });
+            const previousProfile = queryClient.getQueryData(["auth"]);
+
+            queryClient.setQueryData(["auth"], (old: any) => ({
+                ...old,
+                displayName: data.displayName,
+                bio: data.bio,
+                isPrivate: data.isPrivate,
+            }));
+            return { previousProfile };
+        },
+        onError: (_err, _data, context) => {
+            queryClient.setQueryData(["auth"], context?.previousProfile);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["auth","profile",] });
+        },
+    });
+}

@@ -19,7 +19,7 @@ export const userServices = {
         return data;
     },
     async updateMyProfile(paylod: { displayName: string, bio: string, isPrivate: boolean }) {
-        const { data } = await apiClient.put(endpoints.users.updateMyProfile, paylod);
+        const { data } = await apiClient.patch(endpoints.users.updateMyProfile, paylod);
         return data;
     },
     async deleteMyProfile() {

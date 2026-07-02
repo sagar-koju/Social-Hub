@@ -63,7 +63,7 @@ export default function UserProfileContent({
           <div className="flex flex-col items-center gap-6 w-full">
 
             {/* Avatar + Name + Username */}
-            <div className="flex flex-col gap-4 md:flex-row items-center justify-start w-full p-4">
+            <div className="flex flex-col gap-4 items-center justify-start w-full p-4">
               {user.avatarUrl ? (
                 <img
                   src={user.avatarUrl}
@@ -87,9 +87,10 @@ export default function UserProfileContent({
                   Joined in {new Date(user.createdAt).toLocaleDateString("en-US", { month: "long", year: "numeric" })}
                 </div>
               </div>
+
               {/* Bio */}
-              <p className="mt-2 text-sm text-zinc-900 dark:text-zinc-300 max-w-xl w-full text-center">
-                {user.bio ?? <span className="text-zinc-500 italic">No bio yet.</span>}
+              <p className="mt-2 text-xs text-zinc-600 max-w-xl w-full text-center dark:text-zinc-300 italic">
+                {user.bio ?? <span>No bio yet.</span>}
               </p>
             </div>
 
