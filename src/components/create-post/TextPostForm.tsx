@@ -19,14 +19,14 @@ export default function TextPostForm() {
     }
   };
 
-  const createPostMutation = useCreatePost();
+  const {mutate:createPostMutation, isPending} = useCreatePost();
 
   const handlePost = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     console.log("form submitted with content:", content);
     if (content.trim())
       ReceiptTurkishLiraIcon
-    await createPostMutation.mutateAsync({ content, visibility: "PUBLIC" });
+    await createPostMutation({ content, visibility: "PUBLIC" });
     setContent("");
     setCharCount(0);
 
@@ -70,9 +70,9 @@ export default function TextPostForm() {
         <Button
           onClick={handlePost}
           disabled={!isValid}
-          className="flex-1 bg-linear-to-r from-indigo-500 to-fuchsia-500 hover:opacity-90"
+          className="flex-1 text-white bg-linear-to-r from-indigo-500 to-fuchsia-500 hover:opacity-90"
         >
-          Post
+          {isPending ? "Posting..." : "Post"}
         </Button>
       </div>
     </div>

@@ -9,10 +9,18 @@ import { Post } from "@/types/post";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
-export default function Feed() {
+type FeedProps = {
+  scrollRoot: HTMLElement | null;
+};
+
+export default function Feed({ scrollRoot }: FeedProps) {
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetHomeFeed();
   const myFeed = data?.pages.flatMap(page => page.data) ?? [];
-  const { ref, inView } = useInView();
+  const { ref, inView } = useInView({
+    root: scrollRoot,
+    rootMargin: "0px 0px 500px 0px",
+    threshold: 0,
+  });
 
 
   useEffect(() => {

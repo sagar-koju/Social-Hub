@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 import Sidebar from "@/components/sidebar/Sidebar";
-import BookmarksFeed from "@/components/bookmark/BookmarksFeed";
 import FollowUsers from "@/components/activity/FollowUsers";
 import TopNav from "@/components/navigation/TopNav";
 import BottomNav from "@/components/navigation/BottomNav";
@@ -10,6 +10,8 @@ import ExploreFeed from "./ExploreFeed";
 import { ExploreHeader } from "./ExploreHeader";
 
 export default function BookmarksPageClient() {
+  const [scrollContainer, setScrollContainer] = useState<HTMLElement | null>(null);
+
   return (
     <motion.main
       initial={{ opacity: 0 }}
@@ -25,11 +27,14 @@ export default function BookmarksPageClient() {
             <Sidebar />
           </aside>
 
-          <section className="min-h-0 overflow-y-auto pb-28 md:col-span-9 lg:col-span-6 lg:pb-6 scrollbar-hide">
+          <section
+            ref={setScrollContainer}
+            className="min-h-0 overflow-y-auto pb-28 md:col-span-9 lg:col-span-6 lg:pb-6 scrollbar-hide"
+          >
             <div className="sticky top-0 z-40 mb-4">
               <ExploreHeader />
             </div>
-            <ExploreFeed />
+            <ExploreFeed scrollRoot={scrollContainer} />
           </section>
 
           <aside className="hidden min-h-0 lg:col-span-3 lg:block lg:overflow-y-auto scrollbar-hide">

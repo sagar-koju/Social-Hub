@@ -1,18 +1,38 @@
 "use client";
 import { motion } from "framer-motion";
-import Composer from "@/components/feed/Composer";
 import Stories from "@/components/feed/Stories";
 import PostCard from "@/components/feed/PostCard";
 import SkeletonPost from "@/components/feed/SkeletonPost";
 import { Post } from "@/types/post";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 import { useGetTrendingFeed } from "@/hooks/useFeed";
 
-export default function ExploreFeed() {
+type ExploreFeedProps = {
+  scrollRoot: HTMLElement | null;
+};
+
+export default function ExploreFeed({ scrollRoot }: ExploreFeedProps) {
   const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetTrendingFeed();
-  const Feed = data?.pages.flatMap(page => page.data) ?? [];
-  const { ref, inView } = useInView();
+  const Feed = useMemo(() => {
+    const posts = data?.pages.flatMap(page => page.data) ?? [];
+    const seen = new Set<string>();
+
+    return posts.filter((post: Post) => {
+      if (seen.has(post.id)) {
+        return false;
+      }
+
+      seen.add(post.id);
+      return true;
+    });
+  }, [data]);
+
+  const { ref, inView } = useInView({
+    root: scrollRoot,
+    rootMargin: "0px 0px 500px 0px",
+    threshold: 0,
+  });
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
