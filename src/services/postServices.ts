@@ -22,8 +22,8 @@ export const postServices = {
         return data;
     },
 
-    async getUsersWhoLikedPost(payload: { postId: string; limit?: number; cursor?: string }) {
-        const { data } = await apiClient.get(endpoints.posts.getUsersWhoLikedPost, { params: payload });
+    async getUsersWhoLikedPost({ postId, limit, cursor }: { postId: string; limit?: number; cursor?: string }) {
+        const { data } = await apiClient.get(endpoints.posts.getUsersWhoLikedPost.replace("{postId}", postId), { params: { limit, ...(cursor && { cursor }) } });
         return data;
     },
 
@@ -38,8 +38,7 @@ export const postServices = {
     },
 
     // query & path parameter example
-    async getPostByUsername(payload: { username: string; limit?: number; cursor?: string }) {
-        const { username, limit, cursor } = payload;
+    async getPostByUsername({ username, limit, cursor }: { username: string; limit?: number; cursor?: string }) {
         const { data } = await apiClient.get(endpoints.posts.getPostByUsername.replace("{username}", username), { params: { limit, ...(cursor && { cursor }) } });
         return data;
     },

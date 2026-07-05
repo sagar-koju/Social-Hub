@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Avatar from "@/components/ui/avatar";
 import { Bookmark, CheckCheck, ChevronDown, ChevronUp, Heart, MessageCircle, Repeat } from "lucide-react";
@@ -10,7 +10,8 @@ import { timeAgo } from "@/lib/utils"
 import { useLikePost, useUnlikePost } from "@/hooks/usePosts";
 import Link from "next/link";
 import CommentModal from "@/components/comment-post/CommentModal";
-import {useBookmarkPost, useUnbookmarkPost} from "@/hooks/useBookmarks";
+import { useBookmarkPost, useUnbookmarkPost } from "@/hooks/useBookmarks";
+import LikesModal from "./LikesModal";
 
 export default function PostCard({ post }: { post: Post }) {
   const [bookmarked, setBookmarked] = useState(post.isBookmarked);
@@ -18,11 +19,12 @@ export default function PostCard({ post }: { post: Post }) {
   const [liked, setLiked] = useState(post.isLiked);
   const [likes, setLikes] = useState(post.likeCount);
   const [commentOpen, setCommentOpen] = useState(false);
+  const [likesOpen, setLikesOpen] = useState(false);
 
   const shouldTruncate = post.content.length > 250;
   const visibleContent = shouldTruncate && !expanded ? `${post.content.slice(0, 250)}…` : post.content;
 
-  const { mutate: likepost,  } = useLikePost();
+  const { mutate: likepost, } = useLikePost();
   const { mutate: unlikepost } = useUnlikePost();
 
   const handleLike = (postId: string) => {
@@ -123,31 +125,36 @@ export default function PostCard({ post }: { post: Post }) {
             </div>
           )}
 
-          <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-zinc-600 dark:text-zinc-300 sm:gap-4">
+          <div className="mt-4 px-4 flex items-center gap-5 text-md text-zinc-600 dark:text-zinc-300 sm:gap-4 font-semibold">
+            <div className="flex gap-2 items-center">
+              <button
+                onClick={() => setCommentOpen(true)}
+                className="inline-flex items-center gap-2 rounded-full border border-black/8 dark:border-white/8 dark:bg-white/5 transition hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-indigo-300 p-2">
+                <MessageCircle size={16} />
+              </button>
+              <span>{post.commentCount}</span>
+            </div>
 
+            <div className="flex gap-2 items-center">
+              <button className="inline-flex items-center gap-2 rounded-full border border-black/8 dark:border-white/8 dark:bg-white/5  transition hover:border-emerald-400/30 hover:bg-emerald-500/10 hover:text-emerald-300 p-2">
+                <Repeat size={16} />
+              </button>
+              <span>{post.shareCount}</span>
+            </div>
 
-            <button
-              onClick={() => setCommentOpen(true)}
-              className="inline-flex items-center gap-2 rounded-full border border-black/8 dark:border-white/8 dark:bg-white/5 px-3 py-2 transition hover:border-indigo-400/30 hover:bg-indigo-500/10 hover:text-indigo-300">
-              <MessageCircle size={16} />
-            </button>
-            <span>{post.commentCount}</span>
-
-            <button className="inline-flex items-center gap-2 rounded-full border border-black/8 dark:border-white/8 dark:bg-white/5 px-3 py-2 transition hover:border-emerald-400/30 hover:bg-emerald-500/10 hover:text-emerald-300">
-              <Repeat size={16} />
-            </button>
-            <span>{post.shareCount}</span>
-
-            <button
-              onClick={() => handleLike(post.id)}
-              className={`inline-flex items-center rounded-full border p-1.5 transition disabled:opacity-50 cursor-pointer ${liked ? "border-red-400/30 bg-red-500 text-white" : "border-black/8 dark:border-white/8 bg-white/5 hover:border-red-400/30 hover:bg-red-500/10 hover:text-red-300"}`}
-
-            >
-              <motion.span whileTap={{ scale: 0.9 }}>
-                <Heart size={20} fill={liked ? "currentColor" : "none"} />
-              </motion.span>
-            </button>
-            <span>{likes}</span>
+            <div className="flex gap-2">
+              <button
+                onClick={() => handleLike(post.id)}
+                className={`h-10 w-10 inline-flex items-center justify-center rounded-full border p-2 transition disabled:opacity-50 cursor-pointer ${liked ? "border-red-400/30 bg-red-500 text-white" : "border-black/8 dark:border-white/8 bg-white/5 hover:border-red-400/30 hover:bg-red-500/10 hover:text-red-300"}`}
+              >
+                <motion.span whileTap={{ scale: 0.9 }}>
+                  <Heart size={20} fill={liked ? "currentColor" : "none"} />
+                </motion.span>
+              </button>
+              <div className="hover:underline cursor-pointer p-2" onClick={() => setLikesOpen(true)}>
+                {post.likeCount}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -155,6 +162,11 @@ export default function PostCard({ post }: { post: Post }) {
         post={post}
         isOpen={commentOpen}
         onClose={() => setCommentOpen(false)}
+      />
+      <LikesModal
+        postId={post.id}
+        isOpen={likesOpen}
+        onClose={() => setLikesOpen(false)}
       />
     </motion.article>
   );

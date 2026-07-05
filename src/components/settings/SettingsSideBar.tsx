@@ -24,7 +24,7 @@ const SettingsSidebar = ({ activeSection, onSectionChange, search, onSearchChang
   const visibleItems = items.length > 0 ? items : Object.entries(NAV).map(([id, value]) => ({ id: id as SettingsSectionId, label: value.label }));
 
   return (
-    <div className="flex h-full w-full flex-col gap-2 overflow-y-auto border-r border-slate-300 bg-white px-2 py-4 dark:border-white/10 dark:bg-black/50 lg:flex scrollbar-hide item-center ">
+    <div className="flex h-full w-full flex-col gap-2 overflow-y-auto border-r border-slate-300 bg-white px-2 py-4 dark:border-white/10 dark:bg-black/50 lg:flex scrollbar-hide item-center">
       <div className="flex items-center px-3 cursor-pointer">
         <Settings size={20} className="text-slate-900 dark:text-white " />
         <h1 className="ml-4 text-xl font-bold text-slate-900 dark:text-white">Settings</h1>

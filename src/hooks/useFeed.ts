@@ -18,12 +18,11 @@ export const useGetHomeFeed = () => {
 export const useGetFollowingFeed = () => {
     return useInfiniteQuery({
         queryKey: ["following-feed"],
-        queryFn: ({ pageParam }) => feedServices.getFollowingFeed({ cursor: pageParam }),
+        queryFn: ({ pageParam }) => feedServices.getFollowingFeed({ limit: 10, cursor: pageParam }),
         initialPageParam: undefined,
         getNextPageParam: (lastPage) => {
             return lastPage.hasMore ? lastPage.nextCursor : undefined;
         },
-        select: (response) => response,
         staleTime: 0,
         refetchOnMount: true,
         retry: false,
@@ -32,12 +31,11 @@ export const useGetFollowingFeed = () => {
 export const useGetTrendingFeed = () => {
     return useInfiniteQuery({
         queryKey: ["trending-feed"],
-        queryFn: ({ pageParam }) => feedServices.getTrendingFeed({ cursor: pageParam }),
+        queryFn: ({ pageParam }) => feedServices.getTrendingFeed({ limit: 10, cursor: pageParam }),
         initialPageParam: undefined,
         getNextPageParam: (lastPage) => {
             return lastPage.hasMore ? lastPage.nextCursor : undefined;
         },
-        select: (response) => response,
         staleTime: 0,
         refetchOnMount: true,
         retry: false,

@@ -7,23 +7,12 @@ import SkeletonPost from "@/components/feed/SkeletonPost";
 import { Post } from "@/types/post";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { useGetMyBookmarks } from "@/hooks/useBookmarks";
+import { useGetTrendingFeed } from "@/hooks/useFeed";
 
-export default function BookmarksFeed() {
-  const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetMyBookmarks();
-  const Feed = data?.pages.flatMap(page =>
-    page.data.map((post: Post) => ({
-      ...post,
-      isBookmarked: true,
-      isLiked: post.isLiked ?? false,
-    }))
-  ) ?? [];
+export default function ExploreFeed() {
+  const { data, isLoading, error, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetTrendingFeed();
+  const Feed = data?.pages.flatMap(page => page.data) ?? [];
   const { ref, inView } = useInView();
-
-  if(!isLoading){
-    console.log("Bookmarks Feed Data:", Feed);
-  }
-
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -33,8 +22,10 @@ export default function BookmarksFeed() {
 
   return (
     <div>
-      <Stories />
-
+      <div className="">
+        <Stories />
+      </div>
+  
       <motion.div initial="hidden" animate="show" variants={{ show: { transition: { staggerChildren: 0.08 } } }}>
         {isLoading && (
           <>

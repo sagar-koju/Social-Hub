@@ -21,6 +21,25 @@ export const useGetPostByUsername = (username: string) => {
     });
 }
 
+export const useGetUsersWhoLikedPost = (postId: string, enabled: boolean = true) => {
+    return useInfiniteQuery({
+        queryKey: ["users-who-liked-post", postId],
+        queryFn: ({pageParam}) => postServices.getUsersWhoLikedPost({
+            postId, 
+            cursor: pageParam,
+            limit: 10,
+        }),
+        initialPageParam: undefined,
+        getNextPageParam: (lastPage) => {
+            return lastPage.hasMore ? lastPage.nextCursor : undefined;
+        },
+        enabled: !!postId && enabled,
+        staleTime: 0,
+        refetchOnMount: true,
+        retry: false,
+    });
+}
+
 export const useLikePost = () => {
     const queryClient = useQueryClient();
     return useMutation({
